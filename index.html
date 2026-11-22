@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LineUP+ | Portal de TV, Satélites, Streaming e Rádio</title>
+  <title>DOUGPLAY | Portal de TV, Satélites, Streaming e Rádio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,42 +11,28 @@
   
   <!-- Firebase SDKs (Compat / ESM) -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-    // Firebase Configuration with a valid test/demo API key format to prevent auth/api-key-not-valid errors
-    const firebaseConfig = {
-      apiKey: "AIzaSyDummyKeyForLineUPPlusTesting123456789",
-      authDomain: "dougplay-16194.firebaseapp.com",
-      projectId: "dougplay-16194",
-      storageBucket: "dougplay-16194.appspot.com",
-      messagingSenderId: "123456789098",
-      appId: "1:123456789098:web:abcdef12345678"
-    };
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJFTTpDLkQajKxDj6C2m4IAaWo43Yjko4",
+    authDomain: "dougplay-16194.firebaseapp.com",
+    projectId: "dougplay-16194",
+    storageBucket: "dougplay-16194.firebasestorage.app",
+    messagingSenderId: "413449057366",
+    appId: "1:413449057366:web:80541238597159e10237f7",
+    measurementId: "G-CMVGW8XR6H"
+  };
 
-    const firebaseApp = initializeApp(firebaseConfig);
-    const auth = getAuth(firebaseApp);
-    const db = getFirestore(firebaseApp);
-
-    // Authenticate anonymously so Firestore Rules allow read/write
-    signInAnonymously(auth).catch((error) => {
-      console.warn("Firebase Auth Note:", error.message);
-    });
-
-    window.db = db;
-    window.collection = collection;
-    window.getDocs = getDocs;
-    window.addDoc = addDoc;
-    window.deleteDoc = deleteDoc;
-    window.doc = doc;
-    window.setDoc = setDoc;
-    
-    // Trigger initial load once Firebase module is ready
-    if (window.initFirebaseApp) {
-      window.initFirebaseApp();
-    }
-  </script>
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 
   <script>
     tailwind.config = {
@@ -189,7 +175,7 @@
             <input
               id="searchInput"
               type="text"
-              placeholder="Buscar canal, satélite, série..."
+              placeholder="Buscar canal, satélite, radio..."
               class="w-full bg-[#0d1117] border border-slate-800 hover:border-slate-700 focus:border-[#00a8ff] focus:ring-2 focus:ring-[#00a8ff]/20 rounded-xl pl-9 pr-8 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-500 outline-none transition"
             />
             <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5">
