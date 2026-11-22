@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LineUP+ | Portal de TV, Satélites, Streaming e Rádio</title>
+  <title>LineUP+ | Portal de TV, Satélites, Streaming e Rádio (Cloud)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,7 +34,6 @@
     };
   </script>
   <style>
-    /* Custom scrollbar and subtle utilities */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -65,7 +64,6 @@
       animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Hide horizontal scrollbar on category pills */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -74,7 +72,6 @@
       scrollbar-width: none;
     }
 
-    /* Ticker subtle pulse */
     @keyframes pulseDot {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.85); }
@@ -86,7 +83,7 @@
 </head>
 <body class="bg-[#05070a] text-slate-100 font-sans antialiased selection:bg-[#00a8ff]/30 selection:text-[#38bdf8] min-h-screen flex flex-col">
 
-  <!-- Toast Notification Container (No alert() or confirm()) -->
+  <!-- Toast Notification Container -->
   <div id="toastContainer" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
 
   <!-- Custom Confirmation Modal -->
@@ -120,7 +117,6 @@
         <!-- Brand Logo -->
         <button onclick="navigateTo('home', 'Todos')" class="flex items-center gap-2.5 group text-left focus:outline-none shrink-0">
           <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a8ff] to-blue-700 flex items-center justify-center shadow-glow group-hover:shadow-glowStrong transition-all duration-300">
-            <!-- Satellite / Signal SVG Icon -->
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
             </svg>
@@ -130,18 +126,17 @@
             <div class="flex items-center gap-1">
               <span class="text-xl sm:text-2xl font-black tracking-tight text-white">Line<span class="text-[#00a8ff]">UP</span><span class="text-[#38bdf8] font-extrabold">+</span></span>
             </div>
-            <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold hidden sm:block">TV • Satélites • Streaming</p>
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold hidden sm:block">TV • Satélites • Cloud</p>
           </div>
         </button>
 
         <!-- Desktop Category Menu -->
         <nav id="desktopNav" class="hidden lg:flex items-center gap-1 bg-[#0d1117]/90 border border-slate-800/80 p-1.5 rounded-2xl">
-          <!-- Populated dynamically via JS -->
+          <!-- Populated via JS -->
         </nav>
 
         <!-- Search Bar + New Post CTA -->
         <div class="flex items-center gap-2.5 sm:gap-3 flex-1 lg:flex-initial justify-end">
-          <!-- Real-time Search Input -->
           <div class="relative w-full max-w-[180px] sm:max-w-[240px] md:max-w-[270px]">
             <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -149,7 +144,7 @@
             <input
               id="searchInput"
               type="text"
-              placeholder="Buscar canal, satélite, série..."
+              placeholder="Buscar canal, satélite..."
               class="w-full bg-[#0d1117] border border-slate-800 hover:border-slate-700 focus:border-[#00a8ff] focus:ring-2 focus:ring-[#00a8ff]/20 rounded-xl pl-9 pr-8 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-500 outline-none transition"
             />
             <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-0.5">
@@ -159,7 +154,6 @@
             </button>
           </div>
 
-          <!-- "+ Nova Postagem" CTA Button -->
           <button
             onclick="navigateTo('create')"
             class="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#00a8ff] to-[#0284c7] hover:from-[#38bdf8] hover:to-[#00a8ff] text-slate-950 font-bold text-xs sm:text-sm shadow-glow hover:shadow-glowStrong transition-all duration-200 active:scale-95"
@@ -173,9 +167,9 @@
         </div>
       </div>
 
-      <!-- Mobile & Tablet Category Bar -->
+      <!-- Mobile Category Bar -->
       <div id="mobileNav" class="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar pb-3 pt-1">
-        <!-- Populated dynamically via JS -->
+        <!-- Populated via JS -->
       </div>
     </div>
   </header>
@@ -183,19 +177,15 @@
   <!-- Main SPA Content Container -->
   <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
-    <!-- ========================================================= -->
-    <!-- VIEW 1: HOME (CAROUSEL + LIVE TICKER + NEWS & GUIDES GRID) -->
-    <!-- ========================================================= -->
+    <!-- VIEW 1: HOME -->
     <section id="homeView" class="space-y-8 animate-view">
 
-      <!-- Hero Carousel (Slide Principal) -->
+      <!-- Hero Carousel -->
       <div id="heroSection" class="relative rounded-3xl overflow-hidden border border-slate-800/90 bg-[#0d1117] shadow-2xl select-none group">
-        <!-- Slides Track -->
         <div id="carouselTrack" class="relative w-full h-[420px] sm:h-[470px] lg:h-[510px]">
           <!-- Rendered by JS -->
         </div>
 
-        <!-- Left / Right Navigation Arrows -->
         <button
           id="prevSlideBtn"
           aria-label="Slide anterior"
@@ -216,13 +206,10 @@
           </svg>
         </button>
 
-        <!-- Horizontal Bar Indicators -->
-        <div id="carouselIndicators" class="absolute bottom-5 right-5 sm:right-8 z-20 flex items-center gap-2">
-          <!-- Rendered by JS -->
-        </div>
+        <div id="carouselIndicators" class="absolute bottom-5 right-5 sm:right-8 z-20 flex items-center gap-2"></div>
       </div>
 
-      <!-- Quick Bar: Últimas Atualizações de Canais / Line-up -->
+      <!-- Quick Ticker -->
       <div class="bg-[#0d1117] border border-slate-800/90 rounded-2xl p-4 sm:p-5 shadow-lg">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5">
           <div class="flex items-center gap-2.5">
@@ -232,15 +219,12 @@
             </span>
             <h2 class="text-sm sm:text-base font-bold text-white">Últimas Atualizações de Canais & Satélites</h2>
           </div>
-          <span class="text-xs text-slate-400 font-mono">Atualizado em tempo real</span>
+          <span class="text-xs text-slate-400 font-mono">Firebase Cloud Realtime</span>
         </div>
-
-        <div id="quickUpdatesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <!-- Compact update cards rendered by JS -->
-        </div>
+        <div id="quickUpdatesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
       </div>
 
-      <!-- Filter Status & Section Header -->
+      <!-- Section Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-slate-800/70">
         <div>
           <div class="flex items-center gap-2.5">
@@ -248,29 +232,26 @@
             <h2 id="feedHeading" class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Destaques e Guias Recentes</h2>
             <span id="postCountBadge" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-semibold">0</span>
           </div>
-          <p id="feedSubheading" class="text-xs sm:text-sm text-slate-400 mt-1">Cobertura completa de frequências, estreias, grade de canais e bastidores.</p>
+          <p id="feedSubheading" class="text-xs sm:text-sm text-slate-400 mt-1">Sincronizado em tempo real na nuvem para todos os visitantes.</p>
         </div>
 
         <div class="flex items-center gap-2 self-start sm:self-auto">
           <button
             onclick="confirmResetData()"
             class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#0d1117] hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200 text-xs font-medium transition"
-            title="Restaurar as 6 matérias originais do portal"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            Restaurar Padrão
+            Restaurar Padrão Nuvem
           </button>
         </div>
       </div>
 
-      <!-- News & Guides Grid -->
-      <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Cards rendered by JS -->
-      </div>
+      <!-- Articles Grid -->
+      <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-      <!-- Empty Search / Filter State -->
+      <!-- Empty State -->
       <div id="emptyState" class="hidden text-center py-16 px-4 bg-[#0d1117] border border-slate-800 rounded-3xl">
         <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-slate-800/80 flex items-center justify-center text-[#38bdf8]">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,24 +259,16 @@
           </svg>
         </div>
         <h3 class="text-lg font-bold text-white mb-1">Nenhuma matéria encontrada</h3>
-        <p class="text-sm text-slate-400 max-w-md mx-auto mb-5">Não encontramos publicações para o filtro ou termo buscado. Tente limpar a busca ou publicar uma nova informação.</p>
-        <div class="flex items-center justify-center gap-3">
-          <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium transition">
-            Limpar Filtros
-          </button>
-          <button onclick="navigateTo('create')" class="px-4 py-2 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 text-sm font-bold transition">
-            + Criar Postagem
-          </button>
-        </div>
+        <p class="text-sm text-slate-400 max-w-md mx-auto mb-5">Não encontramos publicações para o filtro ou termo buscado.</p>
+        <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-medium transition">
+          Limpar Filtros
+        </button>
       </div>
 
     </section>
 
-    <!-- ========================================================= -->
-    <!-- VIEW 2: ARTICLE READING PAGE (DEDICATED VIEW)             -->
-    <!-- ========================================================= -->
+    <!-- VIEW 2: ARTICLE READING PAGE -->
     <section id="articleView" class="hidden animate-view max-w-4xl mx-auto">
-      <!-- Top Bar -->
       <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
         <button
           onclick="navigateTo('home')"
@@ -304,32 +277,21 @@
           <span class="text-[#38bdf8] group-hover:-translate-x-1 transition-transform">←</span>
           Voltar para o início
         </button>
-
-        <div id="articleAdminActions" class="flex items-center gap-2">
-          <!-- Delete button injected here if user-created or any post -->
-        </div>
+        <div id="articleAdminActions" class="flex items-center gap-2"></div>
       </div>
 
-      <!-- Article Container -->
-      <article id="articleContent" class="bg-[#0d1117] border border-slate-800/90 rounded-3xl overflow-hidden shadow-2xl">
-        <!-- Populated dynamically by JS -->
-      </article>
+      <article id="articleContent" class="bg-[#0d1117] border border-slate-800/90 rounded-3xl overflow-hidden shadow-2xl"></article>
 
-      <!-- Related Articles ("Leia também") -->
       <div class="mt-12 pt-8 border-t border-slate-800/80">
         <div class="flex items-center gap-2.5 mb-6">
           <span class="w-1.5 h-6 rounded-full bg-[#38bdf8]"></span>
           <h3 class="text-xl font-extrabold text-white">Leia também</h3>
         </div>
-        <div id="relatedArticlesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- Populated dynamically by JS -->
-        </div>
+        <div id="relatedArticlesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
       </div>
     </section>
 
-    <!-- ========================================================= -->
-    <!-- VIEW 3: CREATE POST PAGE ("NOVA POSTAGEM" - DEDICATED)    -->
-    <!-- ========================================================= -->
+    <!-- VIEW 3: CREATE POST PAGE -->
     <section id="createView" class="hidden animate-view max-w-4xl mx-auto">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
         <button
@@ -339,20 +301,18 @@
           <span class="text-[#38bdf8] group-hover:-translate-x-1 transition-transform">←</span>
           Voltar para o portal
         </button>
-
         <span class="text-xs font-mono text-[#38bdf8] bg-[#00a8ff]/10 border border-[#00a8ff]/30 px-3 py-1.5 rounded-xl">
-          Modo Editor • Publicação Instantânea
+          Cloud Editor • Sincronização em Tempo Real
         </span>
       </div>
 
       <div class="bg-[#0d1117] border border-slate-800/90 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
         <div class="mb-8 pb-6 border-b border-slate-800/80">
-          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">Publicar Nova Informação</h1>
-          <p class="text-slate-400 text-sm mt-1.5">Preencha os dados abaixo para publicar notícias, atualizações de canais, frequências de satélite ou estreias diretamente na página inicial.</p>
+          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">Publicar Nova Informação na Nuvem</h1>
+          <p class="text-slate-400 text-sm mt-1.5">O post será publicado imediatamente e visível para todos os visitantes do portal.</p>
         </div>
 
         <form id="createPostForm" class="space-y-6">
-          <!-- Title -->
           <div>
             <label for="postTitle" class="block text-sm font-semibold text-slate-200 mb-2">
               Título da Matéria <span class="text-[#00a8ff]">*</span>
@@ -361,12 +321,11 @@
               id="postTitle"
               type="text"
               required
-              placeholder="Ex: Novo canal de filmes em HD entra no ar na Banda Ku do StarOne D2"
+              placeholder="Ex: Novo canal de filmes em HD entra no ar..."
               class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] focus:ring-2 focus:ring-[#00a8ff]/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm sm:text-base outline-none transition"
             />
           </div>
 
-          <!-- Subtitle / Summary -->
           <div>
             <label for="postSummary" class="block text-sm font-semibold text-slate-200 mb-2">
               Subtítulo / Resumo de Chamada <span class="text-[#00a8ff]">*</span>
@@ -375,12 +334,11 @@
               id="postSummary"
               rows="2"
               required
-              placeholder="Breve resumo que aparecerá nos cards e no slide principal..."
+              placeholder="Breve resumo que aparecerá nos cards..."
               class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] focus:ring-2 focus:ring-[#00a8ff]/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm outline-none transition resize-none"
             ></textarea>
           </div>
 
-          <!-- Category, Tag & Author Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label for="postCategory" class="block text-sm font-semibold text-slate-200 mb-2">
@@ -423,19 +381,17 @@
                 id="postAuthor"
                 type="text"
                 value="Redação LineUP+"
-                placeholder="Seu nome ou redação"
                 class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm outline-none transition"
               />
             </div>
           </div>
 
-          <!-- Cover Image URL + Quick Thematic Presets -->
           <div class="bg-[#05070a]/70 border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-3">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <label for="postImage" class="text-sm font-semibold text-slate-200">
                 Imagem de Capa (URL)
               </label>
-              <span class="text-xs text-slate-400">Escolha uma capa rápida abaixo ou cole uma URL</span>
+              <span class="text-xs text-slate-400">Escolha uma capa rápida abaixo</span>
             </div>
 
             <input
@@ -445,36 +401,30 @@
               class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-4 py-2.5 text-white placeholder-slate-500 text-sm outline-none transition"
             />
 
-            <!-- Thematic Preset Buttons -->
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-1">
               <button type="button" onclick="selectPresetCover('satelite')" class="group relative rounded-xl overflow-hidden border border-slate-800 hover:border-[#00a8ff] h-16 transition text-left">
                 <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80" alt="Satélite" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
                 <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">Satélites</span>
               </button>
-
               <button type="button" onclick="selectPresetCover('tv')" class="group relative rounded-xl overflow-hidden border border-slate-800 hover:border-[#00a8ff] h-16 transition text-left">
                 <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=400&q=80" alt="Smart TV" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
                 <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">TV & Estúdio</span>
               </button>
-
               <button type="button" onclick="selectPresetCover('streaming')" class="group relative rounded-xl overflow-hidden border border-slate-800 hover:border-[#00a8ff] h-16 transition text-left">
                 <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=400&q=80" alt="Streaming" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
                 <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">Streaming</span>
               </button>
-
               <button type="button" onclick="selectPresetCover('esportes')" class="group relative rounded-xl overflow-hidden border border-slate-800 hover:border-[#00a8ff] h-16 transition text-left">
-                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Transmissão Esportiva" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Esportes" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
                 <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">Esportes TV</span>
               </button>
-
               <button type="button" onclick="selectPresetCover('radio')" class="group relative rounded-xl overflow-hidden border border-slate-800 hover:border-[#00a8ff] h-16 transition text-left col-span-2 sm:col-span-1">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=400&q=80" alt="Rádio e Áudio" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
-                <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">Rádio FM/Web</span>
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=400&q=80" alt="Rádio" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition" />
+                <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-2 text-[11px] font-bold text-white">Rádio FM</span>
               </button>
             </div>
           </div>
 
-          <!-- Highlight in Hero Carousel Checkbox -->
           <label class="flex items-center gap-3.5 p-4 rounded-2xl bg-[#00a8ff]/10 border border-[#00a8ff]/30 cursor-pointer hover:bg-[#00a8ff]/15 transition">
             <input
               id="postFeatured"
@@ -484,45 +434,37 @@
             />
             <div>
               <span class="block text-sm font-bold text-white">Destacar no Slide Principal (Hero Carousel)</span>
-              <span class="block text-xs text-slate-300">Exibe esta publicação no carrossel rotativo no topo da página inicial.</span>
+              <span class="block text-xs text-slate-300">Exibe esta publicação no carrossel rotativo no topo.</span>
             </div>
           </label>
 
-          <!-- Optional Technical Specs (Ficha Técnica) -->
           <div class="bg-[#05070a]/70 border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-4">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
-                  Ficha Técnica / Parâmetros (Opcional)
-                </h3>
-                <p class="text-xs text-slate-400">Ideal para sintonia de satélite, canal virtual, operadora ou plataforma de streaming.</p>
-              </div>
-            </div>
-
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+              </svg>
+              Ficha Técnica / Parâmetros (Opcional)
+            </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <div>
                 <label for="specChannel" class="block text-xs font-medium text-slate-400 mb-1">Canal / Emissora</label>
-                <input id="specChannel" type="text" placeholder="Ex: Canal 32.1 / N° 145" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 outline-none" />
+                <input id="specChannel" type="text" placeholder="Ex: Canal 32.1" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 outline-none" />
               </div>
               <div>
                 <label for="specSatellite" class="block text-xs font-medium text-slate-400 mb-1">Satélite / Plataforma</label>
                 <input id="specSatellite" type="text" placeholder="Ex: StarOne D2 (70°W)" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 outline-none" />
               </div>
               <div>
-                <label for="specFrequency" class="block text-xs font-medium text-slate-400 mb-1">Frequência / TP / SR</label>
+                <label for="specFrequency" class="block text-xs font-medium text-slate-400 mb-1">Frequência / TP</label>
                 <input id="specFrequency" type="text" placeholder="Ex: 11740 H 29900" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 font-mono outline-none" />
               </div>
               <div>
                 <label for="specResolution" class="block text-xs font-medium text-slate-400 mb-1">Sinal / Codec</label>
-                <input id="specResolution" type="text" placeholder="Ex: Full HD 1080i / HEVC" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 outline-none" />
+                <input id="specResolution" type="text" placeholder="Ex: Full HD 1080i" class="w-full bg-[#0d1117] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-slate-600 outline-none" />
               </div>
             </div>
           </div>
 
-          <!-- Full Article Body Editor -->
           <div>
             <div class="flex items-center justify-between mb-2">
               <label for="postBody" class="block text-sm font-semibold text-slate-200">
@@ -534,12 +476,11 @@
               id="postBody"
               rows="9"
               required
-              placeholder="Escreva aqui todos os detalhes da notícia, parâmetros técnicos, programação, datas de estreia e informações completas para os leitores..."
+              placeholder="Escreva aqui todos os detalhes..."
               class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] focus:ring-2 focus:ring-[#00a8ff]/20 rounded-2xl px-4 py-3.5 text-white placeholder-slate-500 text-sm sm:text-base leading-relaxed outline-none transition"
             ></textarea>
           </div>
 
-          <!-- Submit Actions -->
           <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-800/80">
             <button
               type="button"
@@ -555,7 +496,7 @@
               <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
               </svg>
-              Publicar Matéria Agora
+              Publicar na Nuvem Agora
             </button>
           </div>
         </form>
@@ -564,41 +505,55 @@
 
   </main>
 
-  <!-- Modern Dark Footer -->
+  <!-- Footer -->
   <footer class="border-t border-slate-800/80 bg-[#05070a] mt-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <div class="flex items-center gap-2">
             <span class="text-xl font-black tracking-tight text-white">Line<span class="text-[#00a8ff]">UP</span><span class="text-[#38bdf8]">+</span></span>
-            <span class="text-xs px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 font-mono">v2.5</span>
+            <span class="text-xs px-2 py-0.5 rounded-md bg-slate-800 text-[#38bdf8] font-mono">Firebase Cloud</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-400 mt-2 max-w-md">
-            Portal colaborativo de referência sobre televisão aberta, TV por assinatura, satélites (TVRO/Banda Ku), streaming e radiodifusão no Brasil.
+            Portal colaborativo em tempo real sobre televisão, satélites e streaming.
           </p>
         </div>
-
         <div class="flex flex-wrap gap-2">
           <button onclick="navigateTo('home', 'Todos')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Início</button>
           <button onclick="navigateTo('home', 'TV Aberta')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">TV Aberta</button>
           <button onclick="navigateTo('home', 'Satélites')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Satélites</button>
-          <button onclick="navigateTo('home', 'Streaming')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Streaming</button>
           <button onclick="navigateTo('create')" class="px-3 py-1.5 rounded-lg bg-[#00a8ff]/15 hover:bg-[#00a8ff]/25 text-xs text-[#38bdf8] border border-[#00a8ff]/30 font-semibold transition">+ Nova Postagem</button>
         </div>
       </div>
-
       <div class="mt-8 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-        <p>© 2026 LineUP+ Brasil. Todos os direitos reservados.</p>
-        <p>Dados salvos localmente no seu navegador via LocalStorage.</p>
+        <p>© 2026 LineUP+ Brasil. Sincronizado via Firebase Firestore.</p>
+        <p id="authStatusIndicator" class="font-mono text-[#38bdf8]">Conectando ao Firebase...</p>
       </div>
     </div>
   </footer>
 
-  <!-- ========================================================= -->
-  <!-- APPLICATION LOGIC (VANILLA JAVASCRIPT)                    -->
-  <!-- ========================================================= -->
-  <script>
-    const STORAGE_KEY = 'lineup_plus_articles_v1';
+  <!-- Firebase SDK & Application Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDJFTTpDLkQajKxDj6C2m4IAaWo43Yjko4",
+      authDomain: "dougplay-16194.firebaseapp.com",
+      projectId: "dougplay-16194",
+      storageBucket: "dougplay-16194.firebasestorage.app",
+      messagingSenderId: "413449057366",
+      appId: "1:413449057366:web:80541238597159e10237f7",
+      measurementId: "G-CMVGW8XR6H"
+    };
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'lineup-plus-default';
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
     const CATEGORIES = [
       { id: 'Todos', label: 'Início' },
@@ -618,37 +573,12 @@
     };
 
     const QUICK_UPDATES = [
-      {
-        badge: 'SATÉLITE',
-        badgeColor: 'text-[#38bdf8] bg-[#00a8ff]/15 border-[#00a8ff]/30',
-        title: 'StarOne D2 • Novo Mux HD',
-        detail: 'TP 11740 H 29900 ativado na TVRO Banda Ku.',
-        time: 'Há 25 min'
-      },
-      {
-        badge: 'TV ABERTA',
-        badgeColor: 'text-emerald-400 bg-emerald-500/15 border-emerald-500/30',
-        title: 'TV 3.0 • Testes em SP e RJ',
-        detail: 'Transmissões experimentais com áudio imersivo MPEG-H.',
-        time: 'Há 1 hora'
-      },
-      {
-        badge: 'STREAMING',
-        badgeColor: 'text-purple-400 bg-purple-500/15 border-purple-500/30',
-        title: 'Globoplay + Canais ao Vivo',
-        detail: '4 novos canais FAST gratuitos adicionados ao guia.',
-        time: 'Há 3 horas'
-      },
-      {
-        badge: 'RÁDIO',
-        badgeColor: 'text-amber-400 bg-amber-500/15 border-amber-500/30',
-        title: 'Faixa Estendida eFM 84.7',
-        detail: 'Nova afiliada jornalística entra no ar em Brasília.',
-        time: 'Hoje'
-      }
+      { badge: 'SATÉLITE', badgeColor: 'text-[#38bdf8] bg-[#00a8ff]/15 border-[#00a8ff]/30', title: 'StarOne D2 • Novo Mux HD', detail: 'TP 11740 H 29900 ativado na TVRO Banda Ku.', time: 'Há 25 min' },
+      { badge: 'TV ABERTA', badgeColor: 'text-emerald-400 bg-emerald-500/15 border-emerald-500/30', title: 'TV 3.0 • Testes em SP e RJ', detail: 'Transmissões experimentais com áudio imersivo MPEG-H.', time: 'Há 1 hora' },
+      { badge: 'STREAMING', badgeColor: 'text-purple-400 bg-purple-500/15 border-purple-500/30', title: 'Globoplay + Canais ao Vivo', detail: '4 novos canais FAST gratuitos adicionados ao guia.', time: 'Há 3 horas' },
+      { badge: 'RÁDIO', badgeColor: 'text-amber-400 bg-amber-500/15 border-amber-500/30', title: 'Faixa Estendida eFM 84.7', detail: 'Nova afiliada jornalística entra no ar em Brasília.', time: 'Hoje' }
     ];
 
-    // 6 Realistic, detailed pre-populated Brazilian TV, Satellite & Streaming articles
     const DEFAULT_ARTICLES = [
       {
         id: 'art-1',
@@ -661,18 +591,13 @@
         featured: true,
         isUserCreated: false,
         image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'Canais 118 a 122 (NID)',
-          satellite: 'StarOne D2 (70°W)',
-          frequency: '11740 MHz • Pol. H • SR 29900',
-          resolution: 'Full HD 1080i • DVB-S2 / HEVC'
-        },
-        body: `O sistema SAT HD Regional no satélite StarOne D2 (posição orbital 70° Oeste) acaba de ganhar cinco novas emissoras regionais em alta definição, fortalecendo ainda mais a grade gratuita da nova parabólica em Banda Ku.\n\nSegundo os parâmetros técnicos captados pela equipe de monitoramento do LineUP+, os novos sinais utilizam modulação 8PSK com FEC 3/4, garantindo excelente margem de chuva mesmo em antenas de 60 cm instaladas nas regiões Norte e Nordeste.\n\nPara sintonizar as novidades, os usuários de receptores compatíveis com o sistema SAT HD Regional não precisam realizar busca cega manual: a atualização da tabela NIT ocorre automaticamente ao deixar o aparelho em standby por alguns minutos.\n\nA expectativa é que até o final do próximo trimestre mais 12 afiliadas estaduais concluam a migração definitiva da antiga Banda C para o feixe nacional da Banda Ku.`
+        specs: { channel: 'Canais 118 a 122', satellite: 'StarOne D2 (70°W)', frequency: '11740 MHz H 29900', resolution: 'Full HD 1080i' },
+        body: `O sistema SAT HD Regional no satélite StarOne D2 acaba de ganhar cinco novas emissoras regionais em alta definição...\n\nPara sintonizar as novidades, a tabela NIT é atualizada automaticamente.`
       },
       {
         id: 'art-2',
         title: 'TV 3.0 no Brasil: cronograma oficial confirma primeiras transmissões comerciais em 4K HDR',
-        summary: 'Padrão ATSC 3.0 adaptado ao mercado brasileiro promete interatividade nativa via internet, som imersivo e mobilidade sem perda de sinal.',
+        summary: 'Padrão ATSC 3.0 adaptado ao mercado brasileiro promete interatividade nativa via internet e som imersivo.',
         category: 'TV Aberta',
         tag: 'URGENTE',
         author: 'Mariana Costa',
@@ -680,18 +605,13 @@
         featured: true,
         isUserCreated: false,
         image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'Piloto UHF / VHF Alto',
-          satellite: 'Terrestre Digital (ISDB-T / TV 3.0)',
-          frequency: 'Canal Físico 30 (569 MHz)',
-          resolution: '4K UHD • HDR10 + Áudio MPEG-H'
-        },
-        body: `O Fórum do Sistema Brasileiro de TV Digital (SBTVD) divulgou nesta semana os detalhes técnicos da primeira fase de implantação comercial da TV 3.0 nas capitais do Sudeste.\n\nDiferente da geração atual baseada em canais numéricos fixos, a nova arquitetura orienta a navegação por aplicativos das emissoras diretamente na tela inicial das Smart TVs, permitindo troca instantânea entre o sinal aberto gratuito via antena e conteúdos sob demanda.\n\nEntre os destaques técnicos estão o suporte nativo a resolução 4K com taxa de 60 quadros por segundo, HDR dinâmico e áudio imersivo MPEG-H, onde o telespectador pode aumentar o volume da narração esportiva ou escolher o áudio ambiente do estádio.\n\nA transição será gradual e convivência com o atual sinal ISDB-Tb está assegurada pelos próximos dez anos, garantindo que nenhum televisor atual fique sem sinal.`
+        specs: { channel: 'Canal Físico 30', satellite: 'Terrestre Digital', frequency: '569 MHz', resolution: '4K UHD • HDR' },
+        body: `O Fórum do Sistema Brasileiro de TV Digital (SBTVD) divulgou os detalhes técnicos da implantação da TV 3.0.`
       },
       {
         id: 'art-3',
-        title: 'Guia Completo: Como ficam os direitos de transmissão do Brasileirão e torneios continentais no Streaming',
-        summary: 'Mapeamos todas as plataformas, pacotes esportivos e canais lineares que dividem os jogos ao vivo nesta temporada.',
+        title: 'Guia Completo: Onde assistir ao Brasileirão e torneios continentais no Streaming',
+        summary: 'Mapeamos todas as plataformas, pacotes esportivos e canais lineares ao vivo.',
         category: 'Streaming',
         tag: 'GUIA',
         author: 'Rafael Oliveira',
@@ -699,77 +619,14 @@
         featured: true,
         isUserCreated: false,
         image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'Premiere, CazéTV, Prime & Max',
-          satellite: 'Multiplataforma OTT / Smart TV',
-          frequency: 'Bitrate Adaptativo até 25 Mbps',
-          resolution: '1080p60 / 4K UHD (Jogos Selecionados)'
-        },
-        body: `A fragmentação das transmissões esportivas exige atenção redobrada do torcedor brasileiro para não perder nenhuma partida. Preparamos um guia atualizado detalhando onde assistir cada competição ao vivo.\n\nNa TV por assinatura tradicional e no streaming pago, o Premiere segue concentrando a maior fatia das partidas exclusivas das Séries A e B, agora com sinal de baixa latência reduzindo o famoso atraso em relação ao rádio.\n\nJá no modelo gratuito suportado por anúncios (AVOD/FAST), transmissões via YouTube, Samsung TV Plus e Pluto TV consolidaram audiências recordes com pré-jogo estendido e múltiplas câmeras táticas.\n\nDica técnica do LineUP+: para evitar travamentos em transmissões ao vivo 4K, conecte sua Smart TV via cabo Ethernet ou rede Wi-Fi 5 GHz / Wi-Fi 6 dedicada.`
-      },
-      {
-        id: 'art-4',
-        title: 'Claro tv+ e Sky+ atualizam grade com novos canais de documentários e cinema em 4K',
-        summary: 'Operadoras reorganizam numeração linear e liberam sinal aberto promocional durante todo o fim de semana para assinantes.',
-        category: 'TV por Assinatura',
-        tag: 'NOVIDADE',
-        author: 'Redação LineUP+',
-        date: '19 Nov 2026',
-        featured: false,
-        isUserCreated: false,
-        image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'Canais 650 e 651 HD / 4K',
-          satellite: 'StarOne C4 / Intelsat 11 + Box IPTV',
-          frequency: 'Grade Unificada Nacional',
-          resolution: '1080p Full HD / Dolby Digital 5.1'
-        },
-        body: `As principais operadoras de TV por assinatura do país atualizaram suas grades lineares nesta semana com a inclusão de dois novos canais temáticos voltados a documentários científicos, natureza e cinema independente.\n\nAlém da disponibilização nos decodificadores híbridos e via satélite DTH, ambos os canais já estreiam integrados aos aplicativos móveis e plataformas de box streaming das operadoras, incluindo recurso de replay de programação dos últimos 7 dias.\n\nPara celebrar a chegada ao line-up oficial, o sinal estará aberto sem custo adicional para todos os pacotes básicos até a próxima segunda-feira.`
-      },
-      {
-        id: 'art-5',
-        title: 'Expansão da Faixa Estendida do FM leva 18 antigas emissoras AM para o dial digital nas capitais',
-        summary: 'Migração histórica para os canais entre 76,1 MHz e 87,3 MHz melhora qualidade sonora e ativa recursos RDS nos receptores automotivos.',
-        category: 'Rádio',
-        tag: 'ATUALIZAÇÃO',
-        author: 'Lucas Almeida',
-        date: '18 Nov 2026',
-        featured: false,
-        isUserCreated: false,
-        image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'eFM 79.5 / 81.3 / 84.7 MHz',
-          satellite: 'Link Satelital + FM Terrestre',
-          frequency: 'Faixa Estendida (76.1 - 87.3 MHz)',
-          resolution: 'FM Estéreo + RDS RadioText'
-        },
-        body: `O processo de migração das emissoras de Ondas Médias (AM) para a faixa estendida de Frequência Modulada (eFM) alcançou um novo marco nesta semana com a entrada no ar de 18 estações em capitais e regiões metropolitanas.\n\nOperando entre 76,1 MHz e 87,3 MHz, as emissoras passam a contar com áudio estéreo cristalino, imunidade a interferências elétricas urbanas e suporte completo ao sistema RDS, que exibe o nome da rádio, programa atual e manchetes no visor dos rádios automotivos.\n\nTodas as novas frequências já foram catalogadas no banco de dados de radiodifusão do LineUP+ com suas respectivas potências de operação e classes de cobertura.`
-      },
-      {
-        id: 'art-6',
-        title: 'Canais FAST ultrapassam 140 opções gratuitas no Brasil: veja os melhores lançamentos do mês',
-        summary: 'Plataformas como Pluto TV, Samsung TV Plus e LG Channels apostam em canais temáticos 24h de séries clássicas, notícias e animes.',
-        category: 'Streaming',
-        tag: 'ESTREIA',
-        author: 'Mariana Costa',
-        date: '17 Nov 2026',
-        featured: false,
-        isUserCreated: false,
-        image: 'https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1350&q=85',
-        specs: {
-          channel: 'Guia FAST • 140+ Canais',
-          satellite: 'Pluto TV / Samsung TV Plus / TCL',
-          frequency: 'Acesso Gratuito via Internet',
-          resolution: 'Full HD 1080p • Áudio Estéreo'
-        },
-        body: `O modelo FAST (Free Ad-Supported Streaming Television) continua em ritmo acelerado de crescimento no Brasil, ultrapassando a marca de 140 canais lineares gratuitos disponíveis sem necessidade de cadastro ou assinatura.\n\nNeste mês, os destaques ficam por conta da estreia de canais dedicados exclusivamente a clássicos da ficção científica, gastronomia internacional, jornalismo 24 horas e maratonas de animes dublados em português.\n\nCom guia eletrônico de programação (EPG) completo e integração direta com o controle remoto das Smart TVs mais recentes, os canais FAST resgatam a experiência confortável de zapping da TV tradicional.`
+        specs: { channel: 'Premiere & CazéTV', satellite: 'OTT / Smart TV', frequency: 'Até 25 Mbps', resolution: '1080p60 / 4K' },
+        body: `A fragmentação das transmissões esportivas exige atenção redobrada do torcedor brasileiro.`
       }
     ];
 
-    // Application State
     let state = {
       articles: [],
-      activeView: 'home', // 'home' | 'article' | 'create'
+      activeView: 'home',
       selectedCategory: 'Todos',
       searchQuery: '',
       currentArticleId: null,
@@ -777,54 +634,77 @@
       slideInterval: null,
       isCarouselPaused: false,
       touchStartX: 0,
-      touchEndX: 0
+      touchEndX: 0,
+      currentUser: null
     };
 
-    // Initialize App
-    document.addEventListener('DOMContentLoaded', () => {
-      loadArticlesFromStorage();
+    // Initialize App & Firebase Auth & Firestore Listener
+    window.addEventListener('DOMContentLoaded', async () => {
       renderNavigation();
       renderQuickUpdates();
-      renderHeroCarousel();
-      renderArticlesGrid();
+
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+      } catch (err) {
+        console.warn('Auth fallback:', err);
+        try { await signInAnonymously(auth); } catch(e) {}
+      }
+
+      onAuthStateChanged(auth, (user) => {
+        state.currentUser = user;
+        const statusEl = document.getElementById('authStatusIndicator');
+        if (statusEl) {
+          statusEl.textContent = user ? `Conectado à Nuvem (ID: ${user.uid.substring(0,6)}...)` : 'Modo Convidado';
+        }
+      });
+
+      // Real-time Firestore Listener following RULE 1 & 2
+      const publicCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'articles');
+      
+      onSnapshot(publicCollectionRef, (snapshot) => {
+        const cloudArticles = [];
+        snapshot.forEach((docSnap) => {
+          cloudArticles.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        if (cloudArticles.length > 0) {
+          // Sort by creation or date descending
+          state.articles = cloudArticles;
+        } else {
+          // Initialize default articles in Firestore if empty
+          DEFAULT_ARTICLES.forEach(async (art) => {
+            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), art);
+          });
+          state.articles = [...DEFAULT_ARTICLES];
+        }
+
+        if (state.activeView === 'home') {
+          renderHeroCarousel();
+          renderArticlesGrid();
+        } else if (state.activeView === 'article' && state.currentArticleId) {
+          renderArticleDetail(state.currentArticleId);
+        }
+      }, (error) => {
+        console.error("Firestore error:", error);
+        showToast('Erro de sincronização em nuvem. Usando modo local.', 'error');
+        state.articles = [...DEFAULT_ARTICLES];
+        renderHeroCarousel();
+        renderArticlesGrid();
+      });
+
       setupEventListeners();
     });
 
-    // Load articles from localStorage or fallback to DEFAULT_ARTICLES
-    function loadArticlesFromStorage() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            state.articles = parsed;
-            return;
-          }
-        }
-      } catch (err) {
-        console.error('Erro ao ler localStorage:', err);
-      }
-      state.articles = [...DEFAULT_ARTICLES];
-      saveArticlesToStorage();
-    }
-
-    function saveArticlesToStorage() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.articles));
-      } catch (err) {
-        console.error('Erro ao salvar no localStorage:', err);
-      }
-    }
-
-    // Navigation Controller (SPA Transitions)
-    function navigateTo(view, category = null, articleId = null) {
+    window.navigateTo = function(view, category = null, articleId = null) {
       state.activeView = view;
-
       if (category !== null) {
         state.selectedCategory = category;
         renderNavigation();
       }
-
       if (articleId !== null) {
         state.currentArticleId = articleId;
       }
@@ -851,7 +731,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Render Desktop & Mobile Navigation Pills
     function renderNavigation() {
       const desktopNav = document.getElementById('desktopNav');
       const mobileNav = document.getElementById('mobileNav');
@@ -865,29 +744,19 @@
           ? 'bg-[#00a8ff] text-slate-950 shadow-glow font-bold'
           : 'text-slate-300 hover:text-white hover:bg-slate-800/70';
 
-        return `
-          <button
-            onclick="navigateTo('home', '${cat.id}')"
-            class="${baseClasses} ${activeClasses}"
-          >
-            ${cat.label}
-          </button>
-        `;
+        return `<button onclick="navigateTo('home', '${cat.id}')" class="${baseClasses} ${activeClasses}">${cat.label}</button>`;
       }).join('');
 
       desktopNav.innerHTML = renderButtons(false);
       mobileNav.innerHTML = renderButtons(true);
     }
 
-    // Render Quick Line-UP Ticker Cards
     function renderQuickUpdates() {
       const container = document.getElementById('quickUpdatesGrid');
       container.innerHTML = QUICK_UPDATES.map(item => `
         <div class="bg-[#05070a]/80 hover:bg-[#121822] border border-slate-800/80 hover:border-[#00a8ff]/40 rounded-xl p-3.5 transition-all group">
           <div class="flex items-center justify-between gap-2 mb-1.5">
-            <span class="px-2 py-0.5 rounded-md border text-[10px] font-extrabold tracking-wider ${item.badgeColor}">
-              ${item.badge}
-            </span>
+            <span class="px-2 py-0.5 rounded-md border text-[10px] font-extrabold tracking-wider ${item.badgeColor}">${item.badge}</span>
             <span class="text-[11px] text-slate-500 font-mono">${item.time}</span>
           </div>
           <h3 class="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-[#38bdf8] transition truncate">${item.title}</h3>
@@ -896,7 +765,6 @@
       `).join('');
     }
 
-    // Hero Carousel Logic
     function getFeaturedSlides() {
       const featured = state.articles.filter(a => a.featured);
       return featured.length > 0 ? featured : state.articles.slice(0, 3);
@@ -907,7 +775,6 @@
       const track = document.getElementById('carouselTrack');
       const indicators = document.getElementById('carouselIndicators');
 
-      // Hide hero carousel when searching or filtering a specific category to focus on results
       if (state.searchQuery.trim() !== '' || state.selectedCategory !== 'Todos') {
         heroSection.classList.add('hidden');
         stopCarouselAutoplay();
@@ -922,74 +789,34 @@
         return;
       }
 
-      if (state.currentSlide >= slides.length) {
-        state.currentSlide = 0;
-      }
+      if (state.currentSlide >= slides.length) state.currentSlide = 0;
 
       track.innerHTML = slides.map((slide, index) => {
         const isActive = index === state.currentSlide;
         return `
-          <div
-            class="absolute inset-0 transition-all duration-700 ease-out ${isActive ? 'opacity-100 z-10 scale-100 pointer-events-auto' : 'opacity-0 z-0 scale-[1.02] pointer-events-none'}"
-          >
-            <img
-              src="${escapeHTML(slide.image)}"
-              alt="${escapeHTML(slide.title)}"
-              onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B+Destaque'"
-              class="w-full h-full object-cover object-center"
-            />
-            <!-- Deep Cinematic Gradient Overlay -->
+          <div class="absolute inset-0 transition-all duration-700 ease-out ${isActive ? 'opacity-100 z-10 scale-100 pointer-events-auto' : 'opacity-0 z-0 scale-[1.02] pointer-events-none'}">
+            <img src="${escapeHTML(slide.image)}" alt="${escapeHTML(slide.title)}" onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B'" class="w-full h-full object-cover object-center" />
             <div class="absolute inset-0 bg-gradient-to-t from-[#05070a] via-[#05070a]/75 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-[#05070a]/95 via-[#05070a]/60 to-transparent"></div>
-
-            <!-- Slide Content -->
             <div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-10 lg:p-14 max-w-3xl">
               <div class="flex flex-wrap items-center gap-2.5 mb-3 sm:mb-4">
-                <span class="px-3 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-xs font-black uppercase tracking-wider shadow-glow">
-                  ${escapeHTML(slide.tag || 'DESTAQUE')}
-                </span>
-                <span class="px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-700/80 text-[#38bdf8] text-xs font-semibold backdrop-blur-md">
-                  ${escapeHTML(slide.category)}
-                </span>
-                <span class="text-xs text-slate-300 font-medium hidden sm:inline">
-                  • ${escapeHTML(slide.date)}
-                </span>
+                <span class="px-3 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-xs font-black uppercase tracking-wider shadow-glow">${escapeHTML(slide.tag || 'DESTAQUE')}</span>
+                <span class="px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-700/80 text-[#38bdf8] text-xs font-semibold backdrop-blur-md">${escapeHTML(slide.category)}</span>
               </div>
-
-              <h1 class="text-2xl sm:text-4xl lg:text-[42px] font-black text-white leading-[1.15] tracking-tight mb-3 sm:mb-4 drop-shadow">
-                ${escapeHTML(slide.title)}
-              </h1>
-
-              <p class="text-slate-300 text-sm sm:text-base lg:text-lg line-clamp-2 sm:line-clamp-3 mb-6 leading-relaxed max-w-2xl">
-                ${escapeHTML(slide.summary)}
-              </p>
-
-              <div class="flex items-center gap-3">
-                <button
-                  onclick="navigateTo('article', null, '${slide.id}')"
-                  class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 font-extrabold text-xs sm:text-sm shadow-glow hover:shadow-glowStrong transition-all active:scale-95"
-                >
-                  Ler matéria completa
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
+              <h1 class="text-2xl sm:text-4xl lg:text-[42px] font-black text-white leading-[1.15] tracking-tight mb-3 sm:mb-4 drop-shadow">${escapeHTML(slide.title)}</h1>
+              <p class="text-slate-300 text-sm sm:text-base lg:text-lg line-clamp-2 sm:line-clamp-3 mb-6 leading-relaxed max-w-2xl">${escapeHTML(slide.summary)}</p>
+              <button onclick="navigateTo('article', null, '${slide.id}')" class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 font-extrabold text-xs sm:text-sm shadow-glow transition-all active:scale-95 w-fit">
+                Ler matéria completa
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
             </div>
           </div>
         `;
       }).join('');
 
-      // Horizontal bar indicators
       indicators.innerHTML = slides.map((_, index) => {
         const isActive = index === state.currentSlide;
-        return `
-          <button
-            onclick="goToSlide(${index})"
-            aria-label="Ir para slide ${index + 1}"
-            class="h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-9 bg-[#00a8ff] shadow-glow' : 'w-4 bg-slate-500/60 hover:bg-slate-300'}"
-          ></button>
-        `;
+        return `<button onclick="goToSlide(${index})" aria-label="Slide ${index + 1}" class="h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-9 bg-[#00a8ff] shadow-glow' : 'w-4 bg-slate-500/60 hover:bg-slate-300'}"></button>`;
       }).join('');
 
       startCarouselAutoplay();
@@ -1009,7 +836,7 @@
       renderHeroCarousel();
     }
 
-    function goToSlide(index) {
+    window.goToSlide = function(index) {
       state.currentSlide = index;
       renderHeroCarousel();
     }
@@ -1018,9 +845,7 @@
       stopCarouselAutoplay();
       if (state.isCarouselPaused) return;
       state.slideInterval = setInterval(() => {
-        if (state.activeView === 'home' && !state.isCarouselPaused) {
-          nextSlide();
-        }
+        if (state.activeView === 'home' && !state.isCarouselPaused) nextSlide();
       }, 5500);
     }
 
@@ -1031,34 +856,24 @@
       }
     }
 
-    // Calculate reading time
     function estimateReadingTime(text) {
       const words = (text || '').trim().split(/\s+/).length;
-      const mins = Math.max(1, Math.ceil(words / 180));
-      return `${mins} min de leitura`;
+      return `${Math.max(1, Math.ceil(words / 180))} min de leitura`;
     }
 
-    // Filter Articles by Category and Search Query
     function getFilteredArticles() {
       return state.articles.filter(article => {
         const matchesCategory = state.selectedCategory === 'Todos' || article.category === state.selectedCategory;
         const q = state.searchQuery.trim().toLowerCase();
         if (!q) return matchesCategory;
-
         const inTitle = article.title.toLowerCase().includes(q);
         const inSummary = article.summary.toLowerCase().includes(q);
         const inCategory = article.category.toLowerCase().includes(q);
-        const inTag = (article.tag || '').toLowerCase().includes(q);
         const inBody = (article.body || '').toLowerCase().includes(q);
-        const inSpecs = article.specs
-          ? Object.values(article.specs).some(val => String(val).toLowerCase().includes(q))
-          : false;
-
-        return matchesCategory && (inTitle || inSummary || inCategory || inTag || inBody || inSpecs);
+        return matchesCategory && (inTitle || inSummary || inCategory || inBody);
       });
     }
 
-    // Render News & Guides Grid
     function renderArticlesGrid() {
       const grid = document.getElementById('articlesGrid');
       const emptyState = document.getElementById('emptyState');
@@ -1071,13 +886,13 @@
 
       if (state.searchQuery.trim() !== '') {
         heading.textContent = `Resultados para "${state.searchQuery}"`;
-        subheading.textContent = `Exibindo matérias e parâmetros técnicos encontrados na base do portal.`;
+        subheading.textContent = `Exibindo matérias encontradas na nuvem.`;
       } else if (state.selectedCategory !== 'Todos') {
         heading.textContent = `Categoria: ${state.selectedCategory}`;
-        subheading.textContent = `Todas as notícias, estreias e atualizações de ${state.selectedCategory}.`;
+        subheading.textContent = `Notícias e atualizações de ${state.selectedCategory}.`;
       } else {
         heading.textContent = 'Destaques e Guias Recentes';
-        subheading.textContent = 'Cobertura completa de frequências, estreias, grade de canais e bastidores.';
+        subheading.textContent = 'Sincronizado em tempo real na nuvem.';
       }
 
       if (filtered.length === 0) {
@@ -1093,54 +908,22 @@
         const hasSpecs = article.specs && (article.specs.channel || article.specs.satellite || article.specs.frequency);
 
         return `
-          <article
-            onclick="navigateTo('article', null, '${article.id}')"
-            class="group cursor-pointer bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 hover:border-[#00a8ff]/50 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-glow"
-          >
+          <article onclick="navigateTo('article', null, '${article.id}')" class="group cursor-pointer bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 hover:border-[#00a8ff]/50 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-glow">
             <div>
-              <!-- Card Cover -->
               <div class="relative h-48 sm:h-52 overflow-hidden bg-slate-900">
-                <img
-                  src="${escapeHTML(article.image)}"
-                  alt="${escapeHTML(article.title)}"
-                  onerror="this.src='https://placehold.co/800x450/0d1117/38bdf8?text=LineUP%2B'"
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                <img src="${escapeHTML(article.image)}" alt="${escapeHTML(article.title)}" onerror="this.src='https://placehold.co/800x450/0d1117/38bdf8?text=LineUP%2B'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-black/30"></div>
-
-                <!-- Top Badges -->
                 <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                  <span class="px-2.5 py-1 rounded-lg bg-[#05070a]/85 backdrop-blur-md border border-slate-700/80 text-[#38bdf8] text-[11px] font-bold">
-                    ${escapeHTML(article.category)}
-                  </span>
-                  <span class="px-2.5 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-[10px] font-black uppercase tracking-wider">
-                    ${escapeHTML(article.tag || 'NOTÍCIA')}
-                  </span>
+                  <span class="px-2.5 py-1 rounded-lg bg-[#05070a]/85 backdrop-blur-md border border-slate-700/80 text-[#38bdf8] text-[11px] font-bold">${escapeHTML(article.category)}</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-[10px] font-black uppercase tracking-wider">${escapeHTML(article.tag || 'NOTÍCIA')}</span>
                 </div>
-
-                ${article.isUserCreated ? `
-                  <span class="absolute bottom-2.5 right-3 px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-semibold backdrop-blur-md">
-                    Publicado por você
-                  </span>
-                ` : ''}
               </div>
-
-              <!-- Card Body -->
               <div class="p-5">
                 <div class="flex items-center gap-2 text-xs text-slate-400 mb-2.5">
-                  <span>${escapeHTML(article.date)}</span>
-                  <span>•</span>
-                  <span>${readTime}</span>
+                  <span>${escapeHTML(article.date)}</span><span>•</span><span>${readTime}</span>
                 </div>
-
-                <h3 class="text-lg font-extrabold text-white group-hover:text-[#38bdf8] transition-colors leading-snug mb-2.5 line-clamp-2">
-                  ${escapeHTML(article.title)}
-                </h3>
-
-                <p class="text-slate-400 text-sm line-clamp-3 leading-relaxed">
-                  ${escapeHTML(article.summary)}
-                </p>
-
+                <h3 class="text-lg font-extrabold text-white group-hover:text-[#38bdf8] transition-colors leading-snug mb-2.5 line-clamp-2">${escapeHTML(article.title)}</h3>
+                <p class="text-slate-400 text-sm line-clamp-3 leading-relaxed">${escapeHTML(article.summary)}</p>
                 ${hasSpecs ? `
                   <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center gap-2 text-xs font-mono text-slate-300 truncate">
                     <span class="w-2 h-2 rounded-full bg-[#00a8ff] shrink-0"></span>
@@ -1149,23 +932,15 @@
                 ` : ''}
               </div>
             </div>
-
-            <!-- Card Footer -->
             <div class="px-5 py-3.5 bg-[#05070a]/50 border-t border-slate-800/70 flex items-center justify-between">
               <span class="text-xs text-slate-400 font-medium truncate">Por ${escapeHTML(article.author || 'Redação LineUP+')}</span>
-              <span class="inline-flex items-center gap-1 text-xs font-bold text-[#38bdf8] group-hover:translate-x-1 transition-transform">
-                Ler mais
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
+              <span class="inline-flex items-center gap-1 text-xs font-bold text-[#38bdf8] group-hover:translate-x-1 transition-transform">Ler mais →</span>
             </div>
           </article>
         `;
       }).join('');
     }
 
-    // Render Dedicated Article Reading Page
     function renderArticleDetail(articleId) {
       const article = state.articles.find(a => a.id === articleId);
       if (!article) {
@@ -1178,186 +953,89 @@
       const relatedGrid = document.getElementById('relatedArticlesGrid');
       const readTime = estimateReadingTime(article.body);
 
-      // Delete button (always available for user posts, and available for managing posts)
       adminActions.innerHTML = `
-        <button
-          onclick="confirmDeleteArticle('${article.id}')"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs font-semibold transition"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
+        <button onclick="confirmDeleteArticle('${article.id}')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs font-semibold transition">
           Excluir Postagem
         </button>
       `;
 
-      // Format paragraphs cleanly
       const paragraphsHTML = (article.body || '')
         .split(/\n\s*\n/)
         .filter(p => p.trim() !== '')
         .map(p => `<p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-5">${escapeHTML(p.trim()).replace(/\n/g, '<br>')}</p>`)
         .join('');
 
-      // Check if technical spec sheet exists
       const specs = article.specs || {};
       const hasSpecs = specs.channel || specs.satellite || specs.frequency || specs.resolution;
-
       const specsHTML = hasSpecs ? `
         <div class="my-8 rounded-2xl bg-[#05070a] border border-[#00a8ff]/30 overflow-hidden shadow-lg">
           <div class="px-5 py-3 bg-[#00a8ff]/10 border-b border-[#00a8ff]/20 flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-            </svg>
-            <h3 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#38bdf8]">Ficha Técnica & Parâmetros de Sintonia</h3>
+            <h3 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#38bdf8]">Ficha Técnica & Parâmetros</h3>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-800/80">
             <div class="p-4 space-y-3">
-              ${specs.channel ? `
-                <div>
-                  <span class="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Canal / Emissora</span>
-                  <span class="text-sm font-bold text-white">${escapeHTML(specs.channel)}</span>
-                </div>
-              ` : ''}
-              ${specs.satellite ? `
-                <div>
-                  <span class="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Satélite / Plataforma</span>
-                  <span class="text-sm font-bold text-[#38bdf8]">${escapeHTML(specs.satellite)}</span>
-                </div>
-              ` : ''}
+              ${specs.channel ? `<div><span class="block text-[11px] text-slate-500 font-semibold">Canal</span><span class="text-sm font-bold text-white">${escapeHTML(specs.channel)}</span></div>` : ''}
+              ${specs.satellite ? `<div><span class="block text-[11px] text-slate-500 font-semibold">Satélite</span><span class="text-sm font-bold text-[#38bdf8]">${escapeHTML(specs.satellite)}</span></div>` : ''}
             </div>
             <div class="p-4 space-y-3">
-              ${specs.frequency ? `
-                <div>
-                  <span class="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Frequência / Transponder</span>
-                  <span class="text-sm font-mono font-semibold text-emerald-400">${escapeHTML(specs.frequency)}</span>
-                </div>
-              ` : ''}
-              ${specs.resolution ? `
-                <div>
-                  <span class="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Padrão de Sinal / Codec</span>
-                  <span class="text-sm font-semibold text-slate-200">${escapeHTML(specs.resolution)}</span>
-                </div>
-              ` : ''}
+              ${specs.frequency ? `<div><span class="block text-[11px] text-slate-500 font-semibold">Frequência</span><span class="text-sm font-mono font-semibold text-emerald-400">${escapeHTML(specs.frequency)}</span></div>` : ''}
+              ${specs.resolution ? `<div><span class="block text-[11px] text-slate-500 font-semibold">Sinal</span><span class="text-sm font-semibold text-slate-200">${escapeHTML(specs.resolution)}</span></div>` : ''}
             </div>
           </div>
         </div>
       ` : '';
 
       container.innerHTML = `
-        <!-- Cover Image Hero -->
         <div class="relative h-64 sm:h-80 md:h-[420px] w-full bg-slate-900 overflow-hidden">
-          <img
-            src="${escapeHTML(article.image)}"
-            alt="${escapeHTML(article.title)}"
-            onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B'"
-            class="w-full h-full object-cover"
-          />
+          <img src="${escapeHTML(article.image)}" alt="${escapeHTML(article.title)}" onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B'" class="w-full h-full object-cover" />
           <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/30 to-transparent"></div>
         </div>
-
-        <!-- Article Header & Content -->
         <div class="px-6 sm:px-10 lg:px-12 pb-10 -mt-16 relative z-10">
           <div class="flex flex-wrap items-center gap-2.5 mb-4">
-            <span class="px-3 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-xs font-black uppercase tracking-wider shadow-glow">
-              ${escapeHTML(article.tag || 'MATÉRIA')}
-            </span>
-            <button
-              onclick="navigateTo('home', '${escapeHTML(article.category)}')"
-              class="px-3 py-1 rounded-lg bg-[#05070a]/90 border border-slate-700 hover:border-[#00a8ff] text-[#38bdf8] text-xs font-bold transition"
-            >
-              ${escapeHTML(article.category)}
-            </button>
-            ${article.isUserCreated ? `
-              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
-                Postagem da Comunidade
-              </span>
-            ` : ''}
+            <span class="px-3 py-1 rounded-lg bg-[#00a8ff] text-slate-950 text-xs font-black uppercase tracking-wider shadow-glow">${escapeHTML(article.tag || 'MATÉRIA')}</span>
+            <button onclick="navigateTo('home', '${escapeHTML(article.category)}')" class="px-3 py-1 rounded-lg bg-[#05070a]/90 border border-slate-700 text-[#38bdf8] text-xs font-bold">${escapeHTML(article.category)}</button>
           </div>
-
-          <h1 class="text-2xl sm:text-4xl lg:text-[40px] font-black text-white leading-tight tracking-tight mb-4">
-            ${escapeHTML(article.title)}
-          </h1>
-
-          <p class="text-base sm:text-xl text-slate-300 font-medium leading-relaxed mb-6">
-            ${escapeHTML(article.summary)}
-          </p>
-
-          <!-- Author & Metadata Bar -->
+          <h1 class="text-2xl sm:text-4xl lg:text-[40px] font-black text-white leading-tight tracking-tight mb-4">${escapeHTML(article.title)}</h1>
+          <p class="text-base sm:text-xl text-slate-300 font-medium leading-relaxed mb-6">${escapeHTML(article.summary)}</p>
           <div class="flex flex-wrap items-center justify-between gap-4 py-4 px-5 rounded-2xl bg-[#05070a]/80 border border-slate-800/90 mb-8">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a8ff] to-blue-700 flex items-center justify-center text-slate-950 font-black text-sm">
-                ${escapeHTML((article.author || 'L')[0].toUpperCase())}
-              </div>
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a8ff] to-blue-700 flex items-center justify-center text-slate-950 font-black text-sm">${escapeHTML((article.author || 'L')[0].toUpperCase())}</div>
               <div>
                 <p class="text-sm font-bold text-white">${escapeHTML(article.author || 'Redação LineUP+')}</p>
                 <p class="text-xs text-slate-400">Publicado em ${escapeHTML(article.date)} • ${readTime}</p>
               </div>
             </div>
-
-            <button
-              onclick="copyArticleTitle('${escapeHTML(article.title).replace(/'/g, "\\'")}')"
-              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition"
-            >
-              <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-              Compartilhar
-            </button>
           </div>
-
-          <!-- Technical Specs Table (if provided) -->
           ${specsHTML}
-
-          <!-- Main Body Paragraphs -->
-          <div class="prose prose-invert max-w-none">
-            ${paragraphsHTML}
-          </div>
+          <div class="prose prose-invert max-w-none">${paragraphsHTML}</div>
         </div>
       `;
 
-      // Related Articles ("Leia também")
-      const related = state.articles
-        .filter(a => a.id !== article.id)
-        .sort((a, b) => (a.category === article.category ? -1 : 1))
-        .slice(0, 3);
-
+      const related = state.articles.filter(a => a.id !== article.id).slice(0, 3);
       relatedGrid.innerHTML = related.map(rel => `
-        <div
-          onclick="navigateTo('article', null, '${rel.id}')"
-          class="cursor-pointer group bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 hover:border-[#00a8ff]/50 rounded-2xl overflow-hidden transition-all"
-        >
+        <div onclick="navigateTo('article', null, '${rel.id}')" class="cursor-pointer group bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 rounded-2xl overflow-hidden transition-all">
           <div class="h-36 overflow-hidden relative">
-            <img
-              src="${escapeHTML(rel.image)}"
-              alt="${escapeHTML(rel.title)}"
-              onerror="this.src='https://placehold.co/600x350/0d1117/38bdf8?text=LineUP%2B'"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#05070a]/85 text-[#38bdf8] text-[10px] font-bold">
-              ${escapeHTML(rel.category)}
-            </span>
+            <img src="${escapeHTML(rel.image)}" alt="${escapeHTML(rel.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#05070a]/85 text-[#38bdf8] text-[10px] font-bold">${escapeHTML(rel.category)}</span>
           </div>
           <div class="p-4">
-            <h4 class="text-sm font-bold text-white group-hover:text-[#38bdf8] transition line-clamp-2 leading-snug mb-1.5">
-              ${escapeHTML(rel.title)}
-            </h4>
+            <h4 class="text-sm font-bold text-white group-hover:text-[#38bdf8] transition line-clamp-2 mb-1.5">${escapeHTML(rel.title)}</h4>
             <span class="text-[11px] text-slate-400">${escapeHTML(rel.date)}</span>
           </div>
         </div>
       `).join('');
     }
 
-    // Select Preset Cover Image on Create Post Page
-    function selectPresetCover(key) {
+    window.selectPresetCover = function(key) {
       const input = document.getElementById('postImage');
       if (PRESET_COVERS[key]) {
         input.value = PRESET_COVERS[key];
-        showToast('Imagem de capa temática selecionada!', 'info');
+        showToast('Capa temática selecionada!', 'info');
       }
     }
 
-    // Handle Form Submission for New Post
-    function handleCreatePost(e) {
+    // Handle Create Post and Save to Firebase Firestore (Following RULE 1)
+    document.getElementById('createPostForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const title = document.getElementById('postTitle').value.trim();
@@ -1379,20 +1057,17 @@
         return;
       }
 
-      // Fallback image based on category if empty
       if (!image) {
-        if (category === 'Satélites') image = PRESET_COVERS.satelite;
-        else if (category === 'Streaming') image = PRESET_COVERS.streaming;
-        else if (category === 'Rádio') image = PRESET_COVERS.radio;
-        else image = PRESET_COVERS.tv;
+        image = category === 'Satélites' ? PRESET_COVERS.satelite : PRESET_COVERS.tv;
       }
 
       const now = new Date();
       const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
       const formattedDate = `${String(now.getDate()).padStart(2, '0')} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
+      const newArticleId = 'art-' + Date.now();
       const newArticle = {
-        id: 'art-' + Date.now(),
+        id: newArticleId,
         title,
         summary,
         category,
@@ -1402,192 +1077,122 @@
         featured,
         isUserCreated: true,
         image,
-        specs: {
-          channel: specChannel,
-          satellite: specSatellite,
-          frequency: specFrequency,
-          resolution: specResolution
-        },
+        specs: { channel: specChannel, satellite: specSatellite, frequency: specFrequency, resolution: specResolution },
         body
       };
 
-      state.articles.unshift(newArticle);
-      saveArticlesToStorage();
+      try {
+        // Save to Firestore public collection following RULE 1
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', newArticleId);
+        await setDoc(docRef, newArticle);
+        showToast('Matéria publicada na nuvem com sucesso!', 'success');
+        navigateTo('home', 'Todos');
+      } catch (err) {
+        console.error('Error saving to Firestore:', err);
+        showToast('Erro ao publicar na nuvem. Verifique o console.', 'error');
+      }
+    });
 
-      // Reset form and filters
-      document.getElementById('createPostForm').reset();
-      document.getElementById('postAuthor').value = 'Redação LineUP+';
-      document.getElementById('postFeatured').checked = true;
-      state.selectedCategory = 'Todos';
-      state.searchQuery = '';
-      document.getElementById('searchInput').value = '';
-      document.getElementById('clearSearchBtn').classList.add('hidden');
-      state.currentSlide = 0;
-
-      showToast('Matéria publicada com sucesso no LineUP+!', 'success');
-      navigateTo('home', 'Todos');
-    }
-
-    // Delete Article with Custom Modal
-    function confirmDeleteArticle(articleId) {
+    window.confirmDeleteArticle = function(articleId) {
       openConfirmModal(
-        'Excluir publicação?',
-        'Esta matéria será removida permanentemente da sua lista local. Deseja continuar?',
-        () => {
-          state.articles = state.articles.filter(a => a.id !== articleId);
-          saveArticlesToStorage();
-          showToast('Publicação excluída com sucesso.', 'info');
-          navigateTo('home');
+        'Excluir publicação da nuvem?',
+        'Esta matéria será removida para todos os visitantes do portal.',
+        async () => {
+          try {
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', articleId);
+            await deleteDoc(docRef);
+            showToast('Publicação excluída da nuvem.', 'info');
+            navigateTo('home');
+          } catch (err) {
+            console.error('Delete error:', err);
+            showToast('Erro ao excluir postagem.', 'error');
+          }
         }
       );
     }
 
-    // Restore Default Data with Custom Modal
-    function confirmResetData() {
+    window.confirmResetData = function() {
       openConfirmModal(
-        'Restaurar dados originais?',
-        'Isso irá restaurar as 6 matérias originais do LineUP+ e remover postagens personalizadas criadas neste navegador.',
-        () => {
-          state.articles = [...DEFAULT_ARTICLES];
-          saveArticlesToStorage();
-          state.selectedCategory = 'Todos';
-          state.searchQuery = '';
-          document.getElementById('searchInput').value = '';
-          document.getElementById('clearSearchBtn').classList.add('hidden');
-          state.currentSlide = 0;
-          renderNavigation();
-          renderHeroCarousel();
-          renderArticlesGrid();
-          showToast('Base de dados original restaurada!', 'success');
+        'Restaurar dados padrão?',
+        'Isso irá recarregar as matérias padrão na nuvem.',
+        async () => {
+          try {
+            for (const art of DEFAULT_ARTICLES) {
+              await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), art);
+            }
+            showToast('Base de dados restaurada na nuvem!', 'success');
+            navigateTo('home', 'Todos');
+          } catch (err) {
+            showToast('Erro ao restaurar dados.', 'error');
+          }
         }
       );
     }
 
-    // Custom Confirmation Modal Controller
     function openConfirmModal(title, message, onConfirm) {
       const modal = document.getElementById('confirmModal');
       document.getElementById('confirmTitle').textContent = title;
       document.getElementById('confirmMessage').textContent = message;
-
-      const cancelBtn = document.getElementById('confirmCancelBtn');
-      const acceptBtn = document.getElementById('confirmAcceptBtn');
-
-      const closeModal = () => {
+      document.getElementById('confirmCancelBtn').onclick = () => modal.classList.add('hidden');
+      document.getElementById('confirmAcceptBtn').onclick = () => {
         modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      };
-
-      cancelBtn.onclick = closeModal;
-      acceptBtn.onclick = () => {
-        closeModal();
         if (typeof onConfirm === 'function') onConfirm();
       };
-
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
 
-    // Copy / Share helper using execCommand fallback
-    function copyArticleTitle(title) {
-      const textToCopy = `${title} — Via Portal LineUP+`;
-      const tempInput = document.createElement('textarea');
-      tempInput.value = textToCopy;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      try {
-        document.execCommand('copy');
-        showToast('Título da matéria copiado para compartilhar!', 'success');
-      } catch (err) {
-        showToast('Não foi possível copiar o texto.', 'error');
-      }
-      document.body.removeChild(tempInput);
-    }
-
-    // Toast Notification Helper
     function showToast(message, type = 'info') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
-
       const colors = {
         success: 'bg-[#0d1117] border-emerald-500/50 text-emerald-300',
         error: 'bg-[#0d1117] border-rose-500/50 text-rose-300',
         info: 'bg-[#0d1117] border-[#00a8ff]/50 text-[#38bdf8]'
       };
-
       toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl border shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-semibold animate-view ${colors[type] || colors.info}`;
-      toast.innerHTML = `
-        <span class="w-2 h-2 rounded-full bg-current shrink-0"></span>
-        <span>${escapeHTML(message)}</span>
-      `;
-
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-current shrink-0"></span><span>${escapeHTML(message)}</span>`;
       container.appendChild(toast);
-
       setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(8px)';
-        toast.style.transition = 'all 0.25s ease';
         setTimeout(() => toast.remove(), 260);
       }, 3200);
     }
 
-    // Search & Filter Helpers
-    function clearSearch() {
-      const input = document.getElementById('searchInput');
-      input.value = '';
+    window.clearSearch = function() {
+      document.getElementById('searchInput').value = '';
       state.searchQuery = '';
       document.getElementById('clearSearchBtn').classList.add('hidden');
-      if (state.activeView !== 'home') {
-        navigateTo('home');
-      } else {
-        renderHeroCarousel();
-        renderArticlesGrid();
-      }
+      navigateTo('home');
     }
 
-    function resetFilters() {
+    window.resetFilters = function() {
       state.selectedCategory = 'Todos';
-      clearSearch();
-      renderNavigation();
+      window.clearSearch();
     }
 
-    // Setup Event Listeners (Search, Carousel Swipe/Hover, Form)
     function setupEventListeners() {
-      // Real-time search
       const searchInput = document.getElementById('searchInput');
       const clearBtn = document.getElementById('clearSearchBtn');
 
       searchInput.addEventListener('input', (e) => {
         state.searchQuery = e.target.value;
-        if (state.searchQuery.trim() !== '') {
-          clearBtn.classList.remove('hidden');
-        } else {
-          clearBtn.classList.add('hidden');
-        }
-
-        if (state.activeView !== 'home') {
-          navigateTo('home');
-        } else {
+        if (state.searchQuery.trim() !== '') clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+        if (state.activeView !== 'home') navigateTo('home');
+        else {
           renderHeroCarousel();
           renderArticlesGrid();
         }
       });
 
-      // Carousel Controls & Hover Pause
       const heroSection = document.getElementById('heroSection');
       document.getElementById('prevSlideBtn').addEventListener('click', prevSlide);
       document.getElementById('nextSlideBtn').addEventListener('click', nextSlide);
 
-      heroSection.addEventListener('mouseenter', () => {
-        state.isCarouselPaused = true;
-        stopCarouselAutoplay();
-      });
+      heroSection.addEventListener('mouseenter', () => { state.isCarouselPaused = true; stopCarouselAutoplay(); });
+      heroSection.addEventListener('mouseleave', () => { state.isCarouselPaused = false; startCarouselAutoplay(); });
 
-      heroSection.addEventListener('mouseleave', () => {
-        state.isCarouselPaused = false;
-        startCarouselAutoplay();
-      });
-
-      // Touch Swipe Support for Hero Carousel
       heroSection.addEventListener('touchstart', (e) => {
         state.touchStartX = e.changedTouches[0].screenX;
         state.isCarouselPaused = true;
@@ -1604,20 +1209,11 @@
         state.isCarouselPaused = false;
         startCarouselAutoplay();
       }, { passive: true });
-
-      // Create Post Form Submit
-      document.getElementById('createPostForm').addEventListener('submit', handleCreatePost);
     }
 
-    // XSS Prevention Helper
     function escapeHTML(str) {
       if (str === null || str === undefined) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
   </script>
 </body>
