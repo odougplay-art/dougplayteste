@@ -535,27 +535,31 @@
   <!-- Firebase SDK & Application Script -->
   <script type="module">
   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+  import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
   // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "AIzaSyADTugVjohngL03hSOfApD4rMzINXL6Juw",
-    authDomain: "dougplay-3e8e2.firebaseapp.com",
-    projectId: "dougplay-3e8e2",
-    storageBucket: "dougplay-3e8e2.firebasestorage.app",
-    messagingSenderId: "1039241327353",
-    appId: "1:1039241327353:web:6aafa5439fc3f449592828",
-    measurementId: "G-KVSLSH5C6D"
+    apiKey: "AIzaSyAOJ2y8PmwqTpdPtl24XnOdZw5MEpYfZQU",
+    authDomain: "dougplay-26dd2.firebaseapp.com",
+    projectId: "dougplay-26dd2",
+    storageBucket: "dougplay-26dd2.firebasestorage.app",
+    messagingSenderId: "962312067412",
+    appId: "1:962312067412:web:fcca32af526912efdc10c1",
+    measurementId: "G-G92G6XGDM4"
   };
 
   // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    let analytics = null;
+    try { analytics = getAnalytics(app); } catch (e) {}
     const db = getFirestore(app);
     const auth = getAuth(app);
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'lineup-plus-cloud';
+    const LOCAL_FALLBACK_KEY = 'lineup_plus_cloud_fallback_v1';
+    let useLocalFallback = false;
 
     const CATEGORIES = [
       { id: 'Todos', label: 'Início' },
@@ -640,10 +644,32 @@
       currentUser: null
     };
 
+    function loadLocalFallback() {
+      try {
+        const stored = localStorage.getItem(LOCAL_FALLBACK_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return [...DEFAULT_ARTICLES];
+    }
+
+    function saveLocalFallback(articles) {
+      try {
+        localStorage.setItem(LOCAL_FALLBACK_KEY, JSON.stringify(articles));
+      } catch (e) {}
+    }
+
     // Initialize App & Firebase Auth & Firestore Listener
     window.addEventListener('DOMContentLoaded', async () => {
       renderNavigation();
       renderQuickUpdates();
+
+      // Load initial articles immediately so UI is responsive
+      state.articles = loadLocalFallback();
+      renderHeroCarousel();
+      renderArticlesGrid();
 
       try {
         if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -653,33 +679,34 @@
         }
       } catch (err) {
         console.warn('Auth fallback:', err);
-        try { await signInAnonymously(auth); } catch(e) {}
       }
 
       onAuthStateChanged(auth, (user) => {
         state.currentUser = user;
         const statusEl = document.getElementById('authStatusIndicator');
-        if (statusEl) {
-          statusEl.textContent = user ? `Conectado à Nuvem (ID: ${user.uid.substring(0,6)}...)` : 'Modo Convidado';
+        if (statusEl && !useLocalFallback) {
+          statusEl.textContent = user ? `Conectado à Nuvem (ID: ${user.uid.substring(0,6)}...)` : 'Modo Local Ativo';
         }
       });
 
-      // Real-time Firestore Listener following RULE 1 & 2
+      // Real-time Firestore Listener
       const publicCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'articles');
       
       onSnapshot(publicCollectionRef, (snapshot) => {
+        useLocalFallback = false;
         const cloudArticles = [];
         snapshot.forEach((docSnap) => {
           cloudArticles.push({ id: docSnap.id, ...docSnap.data() });
         });
 
         if (cloudArticles.length > 0) {
-          // Sort by creation or date descending
           state.articles = cloudArticles;
+          saveLocalFallback(cloudArticles);
         } else {
-          // Initialize default articles in Firestore if empty
           DEFAULT_ARTICLES.forEach(async (art) => {
-            await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), art);
+            try {
+              await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), art);
+            } catch (e) {}
           });
           state.articles = [...DEFAULT_ARTICLES];
         }
@@ -691,9 +718,16 @@
           renderArticleDetail(state.currentArticleId);
         }
       }, (error) => {
-        console.error("Firestore error:", error);
-        showToast('Erro de sincronização em nuvem. Usando modo local.', 'error');
-        state.articles = [...DEFAULT_ARTICLES];
+        // Gracefully switch to LocalStorage mode if Firestore rules are locked
+        useLocalFallback = true;
+        console.warn("Firestore bloqueado pelas regras de segurança. Operando em modo LocalStorage:", error.message);
+        const statusEl = document.getElementById('authStatusIndicator');
+        if (statusEl) {
+          statusEl.textContent = 'Modo Local (Libere as Regras do Firestore no Firebase Console)';
+          statusEl.classList.remove('text-[#38bdf8]');
+          statusEl.classList.add('text-amber-400');
+        }
+        state.articles = loadLocalFallback();
         renderHeroCarousel();
         renderArticlesGrid();
       });
@@ -1007,21 +1041,43 @@
                 <p class="text-xs text-slate-400">Publicado em ${escapeHTML(article.date)} • ${readTime}</p>
               </div>
             </div>
+            <button
+              onclick="copyArticleTitle('${escapeHTML(article.title).replace(/'/g, "\\'")}')"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition"
+            >
+              Compartilhar
+            </button>
           </div>
           ${specsHTML}
           <div class="prose prose-invert max-w-none">${paragraphsHTML}</div>
         </div>
       `;
 
-      const related = state.articles.filter(a => a.id !== article.id).slice(0, 3);
+      const related = state.articles
+        .filter(a => a.id !== article.id)
+        .sort((a, b) => (a.category === article.category ? -1 : 1))
+        .slice(0, 3);
+
       relatedGrid.innerHTML = related.map(rel => `
-        <div onclick="navigateTo('article', null, '${rel.id}')" class="cursor-pointer group bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 rounded-2xl overflow-hidden transition-all">
+        <div
+          onclick="navigateTo('article', null, '${rel.id}')"
+          class="cursor-pointer group bg-[#0d1117] hover:bg-[#121822] border border-slate-800/90 hover:border-[#00a8ff]/50 rounded-2xl overflow-hidden transition-all"
+        >
           <div class="h-36 overflow-hidden relative">
-            <img src="${escapeHTML(rel.image)}" alt="${escapeHTML(rel.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#05070a]/85 text-[#38bdf8] text-[10px] font-bold">${escapeHTML(rel.category)}</span>
+            <img
+              src="${escapeHTML(rel.image)}"
+              alt="${escapeHTML(rel.title)}"
+              onerror="this.src='https://placehold.co/600x350/0d1117/38bdf8?text=LineUP%2B'"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#05070a]/85 text-[#38bdf8] text-[10px] font-bold">
+              ${escapeHTML(rel.category)}
+            </span>
           </div>
           <div class="p-4">
-            <h4 class="text-sm font-bold text-white group-hover:text-[#38bdf8] transition line-clamp-2 mb-1.5">${escapeHTML(rel.title)}</h4>
+            <h4 class="text-sm font-bold text-white group-hover:text-[#38bdf8] transition line-clamp-2 leading-snug mb-1.5">
+              ${escapeHTML(rel.title)}
+            </h4>
             <span class="text-[11px] text-slate-400">${escapeHTML(rel.date)}</span>
           </div>
         </div>
@@ -1032,11 +1088,26 @@
       const input = document.getElementById('postImage');
       if (PRESET_COVERS[key]) {
         input.value = PRESET_COVERS[key];
-        showToast('Capa temática selecionada!', 'info');
+        showToast('Imagem de capa temática selecionada!', 'info');
       }
-    }
+    };
 
-    // Handle Create Post and Save to Firebase Firestore (Following RULE 1)
+    window.copyArticleTitle = function(title) {
+      const textToCopy = `${title} — Via Portal LineUP+`;
+      const tempInput = document.createElement('textarea');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast('Título da matéria copiado para compartilhar!', 'success');
+      } catch (err) {
+        showToast('Não foi possível copiar o texto.', 'error');
+      }
+      document.body.removeChild(tempInput);
+    };
+
+    // Handle Create Post and Save to Firebase Firestore (with LocalStorage fallback)
     document.getElementById('createPostForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1083,32 +1154,66 @@
         body
       };
 
+      // Always save locally immediately
+      state.articles.unshift(newArticle);
+      saveLocalFallback(state.articles);
+
       try {
-        // Save to Firestore public collection following RULE 1
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', newArticleId);
-        await setDoc(docRef, newArticle);
-        showToast('Matéria publicada na nuvem com sucesso!', 'success');
-        navigateTo('home', 'Todos');
+        if (!useLocalFallback) {
+          const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', newArticleId);
+          await setDoc(docRef, newArticle);
+          showToast('Matéria publicada na nuvem com sucesso!', 'success');
+        } else {
+          showToast('Matéria salva localmente (ative o Modo de Teste no Firebase para nuvem).', 'info');
+        }
       } catch (err) {
-        console.error('Error saving to Firestore:', err);
-        showToast('Erro ao publicar na nuvem. Verifique o console.', 'error');
+        console.warn('Salvo localmente devido à permissão do Firestore:', err.message);
+        showToast('Matéria salva localmente no navegador!', 'info');
       }
+
+      document.getElementById('createPostForm').reset();
+      document.getElementById('postAuthor').value = 'Redação LineUP+';
+      document.getElementById('postFeatured').checked = true;
+      navigateTo('home', 'Todos');
     });
 
     window.confirmDeleteArticle = function(articleId) {
       openConfirmModal(
-        'Excluir publicação da nuvem?',
-        'Esta matéria será removida para todos os visitantes do portal.',
+        'Excluir publicação?',
+        'Esta matéria será removida permanentemente. Deseja continuar?',
         async () => {
+          state.articles = state.articles.filter(a => a.id !== articleId);
+          saveLocalFallback(state.articles);
           try {
-            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', articleId);
-            await deleteDoc(docRef);
-            showToast('Publicação excluída da nuvem.', 'info');
-            navigateTo('home');
-          } catch (err) {
-            console.error('Delete error:', err);
-            showToast('Erro ao excluir postagem.', 'error');
-          }
+            if (!useLocalFallback) {
+              const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', articleId);
+              await deleteDoc(docRef);
+            }
+          } catch (err) {}
+          showToast('Publicação excluída com sucesso.', 'info');
+          navigateTo('home');
+        }
+      );
+    }
+
+    window.confirmResetData = function() {
+      openConfirmModal(
+        'Restaurar dados padrão?',
+        'Isso irá recarregar as matérias padrão do portal.',
+        async () => {
+          state.articles = [...DEFAULT_ARTICLES];
+          saveLocalFallback(state.articles);
+          try {
+            if (!useLocalFallback) {
+              for (const art of DEFAULT_ARTICLES) {
+                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), art);
+              }
+            }
+          } catch (err) {}
+          renderHeroCarousel();
+          renderArticlesGrid();
+          showToast('Base de dados restaurada!', 'success');
+          navigateTo('home', 'Todos');
         }
       );
     }
