@@ -559,7 +559,7 @@
     const auth = getAuth(app);
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'lineup-plus-cloud';
     const LOCAL_FALLBACK_KEY = 'lineup_plus_cloud_fallback_v1';
-    let useLocalFallback = false;
+    let useLocalFallback = true;
 
     const CATEGORIES = [
       { id: 'Todos', label: 'Início' },
