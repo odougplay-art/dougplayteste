@@ -336,7 +336,6 @@
         <form id="createPostForm" class="space-y-6">
           <input type="hidden" id="editingArticleId" value="" />
 
-          <!-- Title -->
           <div>
             <label for="postTitle" class="block text-sm font-semibold text-slate-200 mb-2">
               Título da Matéria <span class="text-[#00a8ff]">*</span>
@@ -350,7 +349,6 @@
             />
           </div>
 
-          <!-- Subtitle / Summary -->
           <div>
             <label for="postSummary" class="block text-sm font-semibold text-slate-200 mb-2">
               Subtítulo / Resumo de Chamada <span class="text-[#00a8ff]">*</span>
@@ -364,7 +362,6 @@
             ></textarea>
           </div>
 
-          <!-- Category, Tag & Author Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label for="postCategory" class="block text-sm font-semibold text-slate-200 mb-2">
@@ -413,7 +410,6 @@
             </div>
           </div>
 
-          <!-- Cover Image URL + Quick Thematic Presets -->
           <div class="bg-[#05070a]/70 border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-3">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <label for="postImage" class="text-sm font-semibold text-slate-200">
@@ -457,7 +453,6 @@
             </div>
           </div>
 
-          <!-- Highlight in Hero Carousel Checkbox -->
           <label class="flex items-center gap-3.5 p-4 rounded-2xl bg-[#00a8ff]/10 border border-[#00a8ff]/30 cursor-pointer hover:bg-[#00a8ff]/15 transition">
             <input
               id="postFeatured"
@@ -471,7 +466,6 @@
             </div>
           </label>
 
-          <!-- Optional Technical Specs -->
           <div class="bg-[#05070a]/70 border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-4">
             <div>
               <h3 class="text-sm font-bold text-white flex items-center gap-2">
@@ -503,7 +497,6 @@
             </div>
           </div>
 
-          <!-- Full Article Body Editor -->
           <div>
             <div class="flex items-center justify-between mb-2">
               <label for="postBody" class="block text-sm font-semibold text-slate-200">
@@ -520,7 +513,6 @@
             ></textarea>
           </div>
 
-          <!-- Submit Actions -->
           <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-800/80">
             <button
               type="button"
@@ -544,6 +536,175 @@
       </div>
     </section>
 
+    <!-- VIEW 4: CHANNELS / EMISSORAS LINE-UP TABLE PAGE -->
+    <section id="channelsView" class="hidden animate-view space-y-6">
+      <!-- Top Header & Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0d1117] border border-slate-800/90 rounded-3xl p-5 sm:p-6 shadow-xl">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="px-2.5 py-1 rounded-lg bg-[#00a8ff]/15 border border-[#00a8ff]/30 text-[#38bdf8] text-xs font-black uppercase tracking-wider">
+              Line-UP Oficial
+            </span>
+            <span id="channelsCountBadge" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold">0 canais</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight mt-2">Grade de Emissoras & Streaming</h1>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Tabela completa com numeração virtual (ch), logotipos, recursos técnicos (HD, SD, CC, 16:9, OTT) e observações.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button
+            onclick="toggleChannelForm()"
+            id="toggleChannelFormBtn"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00a8ff] to-[#0284c7] hover:from-[#38bdf8] hover:to-[#00a8ff] text-slate-950 font-extrabold text-xs sm:text-sm shadow-glow transition active:scale-95"
+          >
+            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Adicionar Emissora / Canal
+          </button>
+        </div>
+      </div>
+
+      <!-- Collapsible Add / Edit Channel Form -->
+      <div id="channelFormContainer" class="hidden bg-[#0d1117] border border-[#00a8ff]/40 rounded-3xl p-6 sm:p-8 shadow-2xl animate-view">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-800">
+          <div>
+            <h2 id="channelFormTitle" class="text-lg sm:text-xl font-black text-white">Cadastrar Nova Emissora na Grade</h2>
+            <p class="text-xs text-slate-400">Preencha os campos no padrão Line-UP (deixe o número "ch" vazio para apps de Streaming).</p>
+          </div>
+          <button type="button" onclick="toggleChannelForm(false)" class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-400 hover:text-white transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <form id="channelForm" class="space-y-5">
+          <input type="hidden" id="editingChannelId" value="" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div>
+              <label for="chNumber" class="block text-xs font-semibold text-slate-300 mb-1.5">Canal (ch)</label>
+              <input id="chNumber" type="text" placeholder="Ex: 2, 4.1 ou vazio (App)" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 font-mono outline-none" />
+            </div>
+
+            <div>
+              <label for="chName" class="block text-xs font-semibold text-slate-300 mb-1.5">Nome do Canal <span class="text-[#00a8ff]">*</span></label>
+              <input id="chName" type="text" required placeholder="Ex: EPTV Central / Disney+" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 outline-none" />
+            </div>
+
+            <div>
+              <label for="chNetwork" class="block text-xs font-semibold text-slate-300 mb-1.5">Rede / Subtítulo</label>
+              <input id="chNetwork" type="text" placeholder="Ex: TV Globo / Streaming" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 outline-none" />
+            </div>
+
+            <div>
+              <label for="chType" class="block text-xs font-semibold text-slate-300 mb-1.5">Tipo de Linha (Cor)</label>
+              <select id="chType" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white outline-none">
+                <option value="tv">TV Aberta / Linear (Fundo Cinza Azulado)</option>
+                <option value="streaming">App / Streaming / OTT (Fundo Âmbar Suave)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label for="chLogo" class="block text-xs font-semibold text-slate-300 mb-1.5">URL do Logotipo (Opcional)</label>
+              <input id="chLogo" type="url" placeholder="https://... (gera selo automático se vazio)" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 outline-none" />
+            </div>
+
+            <div>
+              <label for="chObsHighlight" class="block text-xs font-semibold text-slate-300 mb-1.5">Destaque na Coluna Obs</label>
+              <input id="chObsHighlight" type="text" placeholder="Ex: Ver Conteudo ou Disp. Região São Carlos" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 outline-none" />
+            </div>
+
+            <div>
+              <label for="chContributor" class="block text-xs font-semibold text-slate-300 mb-1.5">Colaborador / Autor</label>
+              <input id="chContributor" type="text" value="Redação" placeholder="Ex: D Silva, thebrain, varios" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-600 outline-none" />
+            </div>
+          </div>
+
+          <!-- Technical Resource Badges Selector -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">Recursos Técnicos (Ícones da Coluna Recursos)</label>
+            <div class="flex flex-wrap gap-2">
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="HD" checked class="accent-[#00a8ff]" /> HD
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="SD" class="accent-[#00a8ff]" /> SD
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="4K" class="accent-[#00a8ff]" /> 4K
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="CC" class="accent-[#00a8ff]" /> CC (Closed Caption)
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="16:9" checked class="accent-[#00a8ff]" /> 16:9
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="STEREO" class="accent-[#00a8ff]" /> Áudio Estéreo / SAP
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="OTT" class="accent-[#00a8ff]" /> Globo/Streaming App
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="LIBRAS" class="accent-[#00a8ff]" /> Libras / Audiodescrição
+              </label>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+            <button type="button" onclick="toggleChannelForm(false)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+              Cancelar
+            </button>
+            <button type="submit" id="channelSubmitBtn" class="px-6 py-2.5 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 font-extrabold text-xs sm:text-sm shadow-glow transition">
+              Salvar na Grade
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Filter Pills for Line-UP Table -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button onclick="setChannelFilter('all')" id="chFilterAll" class="px-3.5 py-1.5 rounded-xl bg-[#00a8ff] text-slate-950 text-xs font-bold transition">
+            Todos os Canais
+          </button>
+          <button onclick="setChannelFilter('streaming')" id="chFilterStreaming" class="px-3.5 py-1.5 rounded-xl bg-[#0d1117] hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold transition">
+            Apps & Streaming
+          </button>
+          <button onclick="setChannelFilter('tv')" id="chFilterTv" class="px-3.5 py-1.5 rounded-xl bg-[#0d1117] hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold transition">
+            Emissoras Numeradas (ch)
+          </button>
+        </div>
+
+        <button onclick="confirmResetChannels()" class="text-xs text-slate-400 hover:text-slate-200 underline underline-offset-4 transition">
+          Restaurar grade exemplo
+        </button>
+      </div>
+
+      <!-- Classic Line-UP Style Table (Adapted to Modern Dark Mode) -->
+      <div class="bg-[#0d1117] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-center">
+            <thead>
+              <tr class="bg-[#05070a] border-b-2 border-slate-700 text-white text-sm sm:text-base font-extrabold tracking-wide">
+                <th class="py-3.5 px-3 sm:px-5 border-r border-slate-800 w-20 sm:w-28">ch</th>
+                <th class="py-3.5 px-4 sm:px-6 border-r border-slate-800 min-w-[180px]">Canal</th>
+                <th class="py-3.5 px-4 sm:px-6 border-r border-slate-800 min-w-[150px]">Recursos</th>
+                <th class="py-3.5 px-4 sm:px-6 min-w-[180px]">Obs</th>
+              </tr>
+            </thead>
+            <tbody id="channelsTableBody" class="divide-y divide-slate-800/90 text-sm">
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Modern Dark Footer -->
@@ -562,6 +723,7 @@
 
         <div class="flex flex-wrap gap-2">
           <button onclick="navigateTo('home', 'Todos')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Início</button>
+          <button onclick="navigateTo('channels')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-[#38bdf8] border border-slate-800 font-semibold transition">Grade de Emissoras</button>
           <button onclick="navigateTo('home', 'TV Aberta')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">TV Aberta</button>
           <button onclick="navigateTo('home', 'Satélites')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Satélites</button>
           <button onclick="navigateTo('home', 'Streaming')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Streaming</button>
@@ -578,8 +740,14 @@
 
   <!-- Safe Early Stubs before ES Module Loads -->
   <script>
+    window.showToast = window.showToast || function() {};
     window.navigateTo = window.navigateTo || function() {};
     window.editArticle = window.editArticle || function() {};
+    window.toggleChannelForm = window.toggleChannelForm || function() {};
+    window.editChannel = window.editChannel || function() {};
+    window.confirmDeleteChannel = window.confirmDeleteChannel || function() {};
+    window.setChannelFilter = window.setChannelFilter || function() {};
+    window.confirmResetChannels = window.confirmResetChannels || function() {};
     window.clearSearch = window.clearSearch || function() {};
     window.resetFilters = window.resetFilters || function() {};
     window.selectPresetCover = window.selectPresetCover || function() {};
@@ -587,6 +755,7 @@
     window.confirmResetData = window.confirmResetData || function() {};
     window.copyArticleTitle = window.copyArticleTitle || function() {};
     window.goToSlide = window.goToSlide || function() {};
+    window.showToast = window.showToast || function() {};
   </script>
 
   <!-- Firebase + Application Logic -->
@@ -596,9 +765,11 @@
     import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     const STORAGE_KEY = 'lineup_plus_articles_v3';
+    const CHANNELS_STORAGE_KEY = 'lineup_plus_channels_v1';
 
     const CATEGORIES = [
       { id: 'Todos', label: 'Início' },
+      { id: 'Emissoras', label: 'Emissoras', isPage: true },
       { id: 'TV Aberta', label: 'TV Aberta' },
       { id: 'TV por Assinatura', label: 'TV por Assinatura' },
       { id: 'Streaming', label: 'Streaming' },
@@ -642,6 +813,185 @@
         title: 'Faixa Estendida eFM 84.7',
         detail: 'Nova afiliada jornalística entra no ar em Brasília.',
         time: 'Hoje'
+      }
+    ];
+
+    const DEFAULT_CHANNELS = [
+      {
+        id: 'ch-1',
+        ch: '',
+        name: 'Disney+',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'Disney+',
+        logoColor: '#113ccf',
+        features: ['SD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'thebrain',
+        date: '04/10/2021'
+      },
+      {
+        id: 'ch-2',
+        ch: '',
+        name: 'HBO Max',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'HBO max',
+        logoColor: '#5822b4',
+        features: ['SD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'varios',
+        date: '27/06/2017'
+      },
+      {
+        id: 'ch-3',
+        ch: '',
+        name: 'HotGo',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'HOTGO ▶',
+        logoColor: '#e11d48',
+        features: ['HD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'Msilva',
+        date: '15/02/2025'
+      },
+      {
+        id: 'ch-4',
+        ch: '',
+        name: 'Paramount+',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'Paramount+',
+        logoColor: '#0064ff',
+        features: ['SD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'J Pedro',
+        date: '21/12/2022'
+      },
+      {
+        id: 'ch-5',
+        ch: '',
+        name: 'PlayKids',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'play kids',
+        logoColor: '#db2777',
+        features: ['SD', 'OTT'],
+        obsHighlight: '',
+        obsHighlightType: 'none',
+        contributor: 'thebrain',
+        date: '04/10/2021'
+      },
+      {
+        id: 'ch-6',
+        ch: '',
+        name: 'Premiere Play',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'PREMIERE PLAY',
+        logoColor: '#16a34a',
+        features: ['SD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'varios',
+        date: '27/06/2017'
+      },
+      {
+        id: 'ch-7',
+        ch: '',
+        name: 'Prime Video',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'prime video',
+        logoColor: '#00a8e1',
+        features: ['SD', 'OTT'],
+        obsHighlight: 'Ver Conteudo',
+        obsHighlightType: 'link',
+        contributor: 'W Phelipe',
+        date: '28/03/2025'
+      },
+      {
+        id: 'ch-8',
+        ch: '',
+        name: 'Stingray Music App',
+        network: '',
+        type: 'streaming',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'STINGRAY',
+        logoColor: '#0284c7',
+        features: ['SD', 'OTT'],
+        obsHighlight: '',
+        obsHighlightType: 'none',
+        contributor: 'G Henrique',
+        date: '19/02/2019'
+      },
+      {
+        id: 'ch-9',
+        ch: '2',
+        name: 'Cultura',
+        network: '',
+        type: 'tv',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'CULTURA',
+        logoColor: '#15803d',
+        features: ['CC', 'SD', 'STEREO', '16:9'],
+        obsHighlight: '',
+        obsHighlightType: 'none',
+        contributor: 'D Silva',
+        date: '07/07/2017'
+      },
+      {
+        id: 'ch-10',
+        ch: '3',
+        name: 'RIT',
+        network: '',
+        type: 'tv',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'RIT',
+        logoColor: '#ea580c',
+        features: ['SD', 'STEREO', '16:9'],
+        obsHighlight: '',
+        obsHighlightType: 'none',
+        contributor: 'varios',
+        date: '24/05/2018'
+      },
+      {
+        id: 'ch-11',
+        ch: '4',
+        name: 'EPTV Central',
+        network: 'TV Globo',
+        type: 'tv',
+        logo: '',
+        logoBg: '#ffffff',
+        logoText: 'EPTV • GLOBO',
+        logoColor: '#1d4ed8',
+        features: ['CC', 'SD', 'STEREO', 'LIBRAS', '16:9'],
+        obsHighlight: 'Disp. Região São Carlos',
+        obsHighlightType: 'alert',
+        contributor: 'I Silva',
+        date: '22/04/2021'
       }
     ];
 
@@ -784,9 +1134,32 @@
       }
     }
 
+    function loadChannelsFallback() {
+      try {
+        const stored = localStorage.getItem(CHANNELS_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {
+        console.warn('Erro ao ler canais locais:', e);
+      }
+      return [...DEFAULT_CHANNELS];
+    }
+
+    function saveChannelsFallback(channelsList) {
+      try {
+        localStorage.setItem(CHANNELS_STORAGE_KEY, JSON.stringify(channelsList));
+      } catch (e) {
+        console.warn('Erro ao salvar canais locais:', e);
+      }
+    }
+
     // Application State
     let state = {
       articles: loadLocalFallback(),
+      channels: loadChannelsFallback(),
+      channelFilter: 'all',
       activeView: 'home',
       selectedCategory: 'Todos',
       searchQuery: '',
@@ -896,6 +1269,25 @@
           useLocalFallback = true;
           updateSyncStatus(false);
         });
+
+        // Also sync channels collection
+        const channelsCol = collection(db, 'artifacts', appId, 'public', 'data', 'channels');
+        onSnapshot(channelsCol, async (snapshot) => {
+          if (snapshot.empty) {
+            for (const chItem of DEFAULT_CHANNELS) {
+              try {
+                await setDoc(doc(channelsCol, chItem.id), chItem);
+              } catch (e) {}
+            }
+            return;
+          }
+          const cloudChannels = [];
+          snapshot.forEach((docSnap) => cloudChannels.push(docSnap.data()));
+          cloudChannels.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+          state.channels = cloudChannels;
+          saveChannelsFallback(state.channels);
+          if (state.activeView === 'channels') renderChannelsTable();
+        }, () => {});
       });
     }
 
@@ -915,15 +1307,21 @@
       const homeView = document.getElementById('homeView');
       const articleView = document.getElementById('articleView');
       const createView = document.getElementById('createView');
+      const channelsView = document.getElementById('channelsView');
 
       homeView.classList.add('hidden');
       articleView.classList.add('hidden');
       createView.classList.add('hidden');
+      if (channelsView) channelsView.classList.add('hidden');
 
       if (view === 'home') {
         homeView.classList.remove('hidden');
         renderHeroCarousel();
         renderArticlesGrid();
+      } else if (view === 'channels') {
+        if (channelsView) channelsView.classList.remove('hidden');
+        renderNavigation();
+        renderChannelsTable();
       } else if (view === 'article') {
         renderArticleDetail(state.currentArticleId);
         articleView.classList.remove('hidden');
@@ -990,7 +1388,9 @@
       const mobileNav = document.getElementById('mobileNav');
 
       const renderButtons = (isMobile) => CATEGORIES.map(cat => {
-        const isActive = state.selectedCategory === cat.id && state.activeView === 'home';
+        const isActive = cat.isPage
+          ? state.activeView === 'channels'
+          : (state.selectedCategory === cat.id && state.activeView === 'home');
         const baseClasses = isMobile
           ? 'shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all'
           : 'px-3.5 py-2 rounded-xl text-xs xl:text-sm font-semibold transition-all';
@@ -998,9 +1398,13 @@
           ? 'bg-[#00a8ff] text-slate-950 shadow-glow font-bold'
           : 'text-slate-300 hover:text-white hover:bg-slate-800/70';
 
+        const action = cat.isPage
+          ? `navigateTo('channels')`
+          : `navigateTo('home', '${cat.id}')`;
+
         return `
           <button
-            onclick="navigateTo('home', '${cat.id}')"
+            onclick="${action}"
             class="${baseClasses} ${activeClasses}"
           >
             ${cat.label}
@@ -1011,6 +1415,295 @@
       desktopNav.innerHTML = renderButtons(false);
       mobileNav.innerHTML = renderButtons(true);
     }
+
+    // =========================================================
+    // CHANNELS / EMISSORAS LINE-UP TABLE LOGIC
+    // =========================================================
+    function renderFeatureBadge(code) {
+      switch (code) {
+        case 'HD':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-black text-[11px] tracking-tighter shadow-sm" title="Alta Definição (HD)">HD</span>`;
+        case 'SD':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-black text-[11px] tracking-tighter shadow-sm" title="Definição Padrão (SD)">SD</span>`;
+        case '4K':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-[#38bdf8] border border-[#00a8ff]/60 font-black text-[11px] tracking-tighter shadow-sm" title="Ultra HD 4K">4K</span>`;
+        case 'CC':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-black text-[11px] tracking-tight shadow-sm" title="Closed Caption (Legendas Ocultas)">CC</span>`;
+        case '16:9':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-extrabold text-[10px] tracking-tight shadow-sm" title="Widescreen 16:9">16:9</span>`;
+        case 'STEREO':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-bold text-[10px] shadow-sm" title="Áudio Estéreo / SAP">[OO]</span>`;
+        case 'OTT':
+          return `<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-slate-200 to-slate-500 text-slate-950 border border-slate-400 shadow-sm" title="Plataforma Streaming / Globo">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
+          </span>`;
+        case 'LIBRAS':
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-amber-300 border border-slate-600 font-bold text-[10px] shadow-sm" title="Acessibilidade / Libras">🤟</span>`;
+        default:
+          return `<span class="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-black text-white border border-slate-600 font-bold text-[10px]">${escapeHTML(code)}</span>`;
+      }
+    }
+
+    function renderChannelsTable() {
+      const tbody = document.getElementById('channelsTableBody');
+      const countBadge = document.getElementById('channelsCountBadge');
+      if (!tbody) return;
+
+      const q = state.searchQuery.trim().toLowerCase();
+      const filtered = state.channels.filter(item => {
+        const matchesType = state.channelFilter === 'all' || item.type === state.channelFilter;
+        if (!q) return matchesType;
+        return matchesType && (
+          (item.name || '').toLowerCase().includes(q) ||
+          (item.network || '').toLowerCase().includes(q) ||
+          (item.ch || '').toLowerCase().includes(q) ||
+          (item.obsHighlight || '').toLowerCase().includes(q) ||
+          (item.contributor || '').toLowerCase().includes(q)
+        );
+      });
+
+      if (countBadge) countBadge.textContent = `${filtered.length} canais`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-12 px-4 text-center text-slate-400">
+              Nenhuma emissora encontrada para este filtro.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => {
+        const isStreaming = item.type === 'streaming';
+        // Subtle warm amber tint for streaming apps vs cool slate tint for numbered TV channels (matching the reference style adapted to dark mode)
+        const rowBg = isStreaming
+          ? 'bg-[#1a1610]/90 hover:bg-[#231d15]'
+          : 'bg-[#11161f] hover:bg-[#171e2b]';
+
+        const logoHTML = item.logo
+          ? `<img src="${escapeHTML(item.logo)}" alt="${escapeHTML(item.name)}" onerror="this.style.display='none'" class="max-h-11 max-w-[115px] object-contain mx-auto rounded" />`
+          : `<div class="mx-auto w-[112px] h-[46px] rounded-md bg-white border border-slate-300 shadow-sm flex items-center justify-center px-2">
+               <span class="font-black text-xs tracking-tight text-center leading-tight" style="color: ${escapeHTML(item.logoColor || '#0f172a')}">
+                 ${escapeHTML(item.logoText || item.name)}
+               </span>
+             </div>`;
+
+        const featuresHTML = (item.features || []).map(f => renderFeatureBadge(f)).join('');
+
+        let obsTopHTML = '';
+        if (item.obsHighlight) {
+          if (item.obsHighlightType === 'alert') {
+            obsTopHTML = `<div class="text-rose-400 font-semibold text-xs mb-0.5">${escapeHTML(item.obsHighlight)}</div>`;
+          } else {
+            obsTopHTML = `<button onclick="showToast('Conteúdo e guia de ${escapeHTML(item.name).replace(/'/g, "\\'")}', 'info')" class="text-[#38bdf8] hover:underline font-semibold text-xs mb-0.5">${escapeHTML(item.obsHighlight)}</button>`;
+          }
+        }
+
+        return `
+          <tr class="${rowBg} transition-colors group">
+            <!-- Coluna ch -->
+            <td class="py-3 px-3 border-r border-slate-800/90 font-black text-lg sm:text-xl text-white font-mono">
+              ${escapeHTML(item.ch || '')}
+            </td>
+
+            <!-- Coluna Canal (Nome + Subtítulo + Logo) -->
+            <td class="py-3 px-4 border-r border-slate-800/90">
+              <div class="flex flex-col items-center justify-center gap-1.5">
+                <div>
+                  <span class="block text-[#38bdf8] font-bold text-xs sm:text-sm leading-tight">${escapeHTML(item.name)}</span>
+                  ${item.network ? `<span class="block text-[#60a5fa] text-[11px] font-medium leading-tight">${escapeHTML(item.network)}</span>` : ''}
+                </div>
+                ${logoHTML}
+              </div>
+            </td>
+
+            <!-- Coluna Recursos -->
+            <td class="py-3 px-3 border-r border-slate-800/90">
+              <div class="flex flex-wrap items-center justify-center gap-1.5 max-w-[160px] mx-auto">
+                ${featuresHTML}
+              </div>
+            </td>
+
+            <!-- Coluna Obs -->
+            <td class="py-3 px-4 relative">
+              <div class="flex flex-col items-center justify-center text-xs leading-snug">
+                ${obsTopHTML}
+                <span class="text-slate-300 font-medium">${escapeHTML(item.contributor || 'varios')}</span>
+                <span class="text-slate-400 font-mono text-[11px]">${escapeHTML(item.date || '')}</span>
+              </div>
+
+              <!-- Quick Edit / Delete Hover Controls -->
+              <div class="mt-2 flex items-center justify-center gap-1.5 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                <button onclick="editChannel('${item.id}')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-[#00a8ff] text-slate-300 hover:text-slate-950 text-[10px] font-bold transition">
+                  Editar
+                </button>
+                <button onclick="confirmDeleteChannel('${item.id}')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-[10px] font-bold transition">
+                  Excluir
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.toggleChannelForm = function(forceState = null) {
+      const container = document.getElementById('channelFormContainer');
+      if (!container) return;
+      const shouldShow = forceState !== null ? forceState : container.classList.contains('hidden');
+      if (shouldShow) {
+        document.getElementById('editingChannelId').value = '';
+        document.getElementById('channelForm').reset();
+        document.getElementById('chContributor').value = 'Redação';
+        document.getElementById('channelFormTitle').textContent = 'Cadastrar Nova Emissora na Grade';
+        document.getElementById('channelSubmitBtn').textContent = 'Salvar na Grade';
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
+    };
+
+    window.editChannel = function(channelId) {
+      const ch = state.channels.find(c => c.id === channelId);
+      if (!ch) return;
+
+      const container = document.getElementById('channelFormContainer');
+      container.classList.remove('hidden');
+
+      document.getElementById('editingChannelId').value = ch.id;
+      document.getElementById('chNumber').value = ch.ch || '';
+      document.getElementById('chName').value = ch.name || '';
+      document.getElementById('chNetwork').value = ch.network || '';
+      document.getElementById('chType').value = ch.type || 'tv';
+      document.getElementById('chLogo').value = ch.logo || '';
+      document.getElementById('chObsHighlight').value = ch.obsHighlight || '';
+      document.getElementById('chContributor').value = ch.contributor || 'Redação';
+
+      document.querySelectorAll('input[name="chFeatures"]').forEach(cb => {
+        cb.checked = (ch.features || []).includes(cb.value);
+      });
+
+      document.getElementById('channelFormTitle').textContent = `Editar Canal: ${ch.name}`;
+      document.getElementById('channelSubmitBtn').textContent = 'Atualizar Canal';
+      container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    async function handleSaveChannel(e) {
+      e.preventDefault();
+      const editingId = document.getElementById('editingChannelId').value.trim();
+      const ch = document.getElementById('chNumber').value.trim();
+      const name = document.getElementById('chName').value.trim();
+      const network = document.getElementById('chNetwork').value.trim();
+      const type = document.getElementById('chType').value;
+      const logo = document.getElementById('chLogo').value.trim();
+      const obsHighlight = document.getElementById('chObsHighlight').value.trim();
+      const contributor = document.getElementById('chContributor').value.trim() || 'varios';
+
+      if (!name) {
+        showToast('Informe o nome do canal ou emissora.', 'error');
+        return;
+      }
+
+      const features = [];
+      document.querySelectorAll('input[name="chFeatures"]:checked').forEach(cb => {
+        features.push(cb.value);
+      });
+
+      const now = new Date();
+      const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      const existing = editingId ? state.channels.find(c => c.id === editingId) : null;
+      const targetId = editingId || ('ch-' + Date.now());
+
+      const isAlertObs = obsHighlight.toLowerCase().startsWith('disp') || obsHighlight.toLowerCase().includes('região');
+
+      const channelObj = {
+        id: targetId,
+        order: existing ? (existing.order ?? state.channels.length) : state.channels.length,
+        ch,
+        name,
+        network,
+        type,
+        logo,
+        logoBg: '#ffffff',
+        logoText: name.toUpperCase(),
+        logoColor: type === 'streaming' ? '#0284c7' : '#15803d',
+        features,
+        obsHighlight,
+        obsHighlightType: obsHighlight ? (isAlertObs ? 'alert' : 'link') : 'none',
+        contributor,
+        date: existing ? existing.date : formattedDate
+      };
+
+      if (editingId) {
+        const idx = state.channels.findIndex(c => c.id === editingId);
+        if (idx !== -1) state.channels[idx] = channelObj;
+        else state.channels.push(channelObj);
+      } else {
+        state.channels.push(channelObj);
+      }
+      saveChannelsFallback(state.channels);
+
+      try {
+        if (!useLocalFallback && db) {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'channels', targetId), channelObj);
+        }
+      } catch (err) {}
+
+      toggleChannelForm(false);
+      renderChannelsTable();
+      showToast(editingId ? 'Canal atualizado na grade!' : 'Emissora adicionada à grade!', 'success');
+    }
+
+    window.confirmDeleteChannel = function(channelId) {
+      openConfirmModal(
+        'Remover canal da grade?',
+        'Deseja excluir esta emissora da tabela Line-UP?',
+        async () => {
+          state.channels = state.channels.filter(c => c.id !== channelId);
+          saveChannelsFallback(state.channels);
+          try {
+            if (!useLocalFallback && db) {
+              await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'channels', channelId));
+            }
+          } catch (err) {}
+          renderChannelsTable();
+          showToast('Emissora removida da grade.', 'info');
+        }
+      );
+    };
+
+    window.setChannelFilter = function(filter) {
+      state.channelFilter = filter;
+      const btns = {
+        all: document.getElementById('chFilterAll'),
+        streaming: document.getElementById('chFilterStreaming'),
+        tv: document.getElementById('chFilterTv')
+      };
+      Object.entries(btns).forEach(([key, btn]) => {
+        if (!btn) return;
+        if (key === filter) {
+          btn.className = 'px-3.5 py-1.5 rounded-xl bg-[#00a8ff] text-slate-950 text-xs font-bold transition';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-xl bg-[#0d1117] hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold transition';
+        }
+      });
+      renderChannelsTable();
+    };
+
+    window.confirmResetChannels = function() {
+      openConfirmModal(
+        'Restaurar grade exemplo?',
+        'Isso restaurará a lista padrão de canais e aplicativos de streaming.',
+        async () => {
+          state.channels = [...DEFAULT_CHANNELS];
+          saveChannelsFallback(state.channels);
+          renderChannelsTable();
+          showToast('Grade de emissoras restaurada!', 'success');
+        }
+      );
+    };
 
     // Render Quick Line-UP Ticker
     function renderQuickUpdates() {
@@ -1692,6 +2385,7 @@
         setTimeout(() => toast.remove(), 260);
       }, 3200);
     }
+    window.showToast = showToast;
 
     window.clearSearch = function() {
       const input = document.getElementById('searchInput');
@@ -1724,13 +2418,20 @@
           clearBtn.classList.add('hidden');
         }
 
-        if (state.activeView !== 'home') {
+        if (state.activeView === 'channels') {
+          renderChannelsTable();
+        } else if (state.activeView !== 'home') {
           navigateTo('home');
         } else {
           renderHeroCarousel();
           renderArticlesGrid();
         }
       });
+
+      const channelForm = document.getElementById('channelForm');
+      if (channelForm) {
+        channelForm.addEventListener('submit', handleSaveChannel);
+      }
 
       const heroSection = document.getElementById('heroSection');
       document.getElementById('prevSlideBtn').addEventListener('click', prevSlide);
