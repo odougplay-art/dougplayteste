@@ -837,6 +837,7 @@
     window.editArticle = window.editArticle || function() {};
     window.toggleChannelForm = window.toggleChannelForm || function() {};
     window.editChannel = window.editChannel || function() {};
+    window.moveChannel = window.moveChannel || function() {};
     window.confirmDeleteChannel = window.confirmDeleteChannel || function() {};
     window.setChannelFilter = window.setChannelFilter || function() {};
     window.confirmResetChannels = window.confirmResetChannels || function() {};
@@ -1557,20 +1558,22 @@
         );
       });
 
-      if (countBadge) countBadge.textContent = `${filtered.length} canais`;
+      if (countBadge) {
+        countBadge.textContent = `${filtered.length} ${filtered.length === 1 ? 'canal' : 'canais'}`;
+      }
 
       if (filtered.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="4" class="py-12 px-4 text-center text-slate-400">
-              Nenhuma emissora encontrada para este filtro.
+            <td colspan="4" class="py-10 px-4 text-center text-slate-400 text-sm">
+              Nenhuma emissora ou aplicativo encontrado com os filtros atuais.
             </td>
           </tr>
         `;
         return;
       }
 
-      tbody.innerHTML = filtered.map(item => {
+      tbody.innerHTML = filtered.map((item, filteredIdx) => {
         const feats = item.features || [];
         let rowBg = 'bg-[#11161f] hover:bg-[#171e2b] border-l-4 border-l-slate-700';
 
@@ -1584,6 +1587,9 @@
         } else if (feats.includes('SD')) {
           rowBg = 'bg-[#261e12]/90 hover:bg-[#332818] border-l-4 border-l-amber-400';
         }
+
+        const isFirst = filteredIdx === 0;
+        const isLast = filteredIdx === filtered.length - 1;
 
         const logoHTML = item.logo
           ? `<img src="${escapeHTML(item.logo)}" alt="${escapeHTML(item.name)}" onerror="this.style.display='none'" class="max-h-11 max-w-[115px] object-contain mx-auto rounded" />`
@@ -1637,8 +1643,24 @@
                 <span class="text-slate-400 font-mono text-[11px]">${escapeHTML(item.date || '')}</span>
               </div>
 
-              <!-- Quick Edit / Delete Hover Controls -->
-              <div class="mt-2 flex items-center justify-center gap-1.5 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+              <!-- Quick Move Up/Down, Edit & Delete Controls -->
+              <div class="mt-2 flex flex-wrap items-center justify-center gap-1 opacity-90 sm:opacity-60 sm:group-hover:opacity-100 transition-opacity">
+                <button
+                  onclick="moveChannel('${item.id}', -1)"
+                  ${isFirst ? 'disabled' : ''}
+                  title="Mover para cima"
+                  class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-[#00a8ff] text-slate-300 hover:text-slate-950 disabled:opacity-30 disabled:pointer-events-none text-[11px] font-black transition"
+                >
+                  ↑
+                </button>
+                <button
+                  onclick="moveChannel('${item.id}', 1)"
+                  ${isLast ? 'disabled' : ''}
+                  title="Mover para baixo"
+                  class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-[#00a8ff] text-slate-300 hover:text-slate-950 disabled:opacity-30 disabled:pointer-events-none text-[11px] font-black transition"
+                >
+                  ↓
+                </button>
                 <button onclick="editChannel('${item.id}')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-[#00a8ff] text-slate-300 hover:text-slate-950 text-[10px] font-bold transition">
                   Editar
                 </button>
@@ -1764,6 +1786,51 @@
       renderChannelsTable();
       showToast(editingId ? 'Canal atualizado na grade!' : 'Emissora adicionada à grade!', 'success');
     }
+
+    window.moveChannel = async function(channelId, direction) {
+      const q = state.searchQuery.trim().toLowerCase();
+      const visibleList = state.channels.filter(item => {
+        const matchesType = state.channelFilter === 'all' || item.type === state.channelFilter;
+        if (!q) return matchesType;
+        return matchesType && (
+          (item.name || '').toLowerCase().includes(q) ||
+          (item.network || '').toLowerCase().includes(q) ||
+          (item.ch || '').toLowerCase().includes(q) ||
+          (item.obsHighlight || '').toLowerCase().includes(q) ||
+          (item.contributor || '').toLowerCase().includes(q)
+        );
+      });
+
+      const currentVisIdx = visibleList.findIndex(c => c.id === channelId);
+      const targetVisIdx = currentVisIdx + direction;
+      if (currentVisIdx === -1 || targetVisIdx < 0 || targetVisIdx >= visibleList.length) return;
+
+      const targetChannel = visibleList[targetVisIdx];
+      const idxA = state.channels.findIndex(c => c.id === channelId);
+      const idxB = state.channels.findIndex(c => c.id === targetChannel.id);
+      if (idxA === -1 || idxB === -1) return;
+
+      // Swap positions in main list and normalize order indexes
+      const temp = state.channels[idxA];
+      state.channels[idxA] = state.channels[idxB];
+      state.channels[idxB] = temp;
+
+      state.channels.forEach((ch, idx) => {
+        ch.order = idx;
+      });
+
+      saveChannelsFallback(state.channels);
+      renderChannelsTable();
+
+      try {
+        if (!useLocalFallback && db) {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'channels', state.channels[idxA].id), state.channels[idxA]);
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'channels', state.channels[idxB].id), state.channels[idxB]);
+        }
+      } catch (err) {
+        console.warn('Ordem salva localmente:', err.message);
+      }
+    };
 
     window.confirmDeleteChannel = function(channelId) {
       openConfirmModal(
