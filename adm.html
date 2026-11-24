@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LineUP+ | Portal de TV, Satélites, Streaming e Rádio</title>
+  <title>DOUGPLAY | Portal de TV, Satélites, Streaming e Rádio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,7 +124,7 @@
           </div>
           <div>
             <div class="flex items-center gap-1">
-              <span class="text-xl sm:text-2xl font-black tracking-tight text-white">Line<span class="text-[#00a8ff]">UP</span><span class="text-[#38bdf8] font-extrabold">+</span></span>
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-white">DOUG<span class="text-[#00a8ff]">PLAY</span></span>
             </div>
             <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold hidden sm:block">TV • Satélites • Streaming</p>
           </div>
@@ -217,7 +217,7 @@
           <div class="flex items-center gap-2.5">
             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00a8ff]/15 border border-[#00a8ff]/30 text-[#38bdf8] text-xs font-bold uppercase tracking-wider">
               <span class="w-2 h-2 rounded-full bg-[#38bdf8] live-dot"></span>
-              Line-UP Rápido
+              DOUGPLAY Rápido
             </span>
             <h2 class="text-sm sm:text-base font-bold text-white">Últimas Atualizações de Canais & Satélites</h2>
           </div>
@@ -403,7 +403,7 @@
               <input
                 id="postAuthor"
                 type="text"
-                value="Redação LineUP+"
+                value="Redação DOUGPLAY"
                 placeholder="Seu nome ou redação"
                 class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm outline-none transition"
               />
@@ -543,7 +543,7 @@
         <div>
           <div class="flex items-center gap-2.5">
             <span class="px-2.5 py-1 rounded-lg bg-[#00a8ff]/15 border border-[#00a8ff]/30 text-[#38bdf8] text-xs font-black uppercase tracking-wider">
-              Line-UP Oficial
+              DOUGPLAY Oficial
             </span>
             <span id="channelsCountBadge" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-bold">0 canais</span>
           </div>
@@ -599,10 +599,10 @@
             </div>
 
             <div>
-              <label for="chType" class="block text-xs font-semibold text-slate-300 mb-1.5">Tipo de Linha (Cor)</label>
+              <label for="chType" class="block text-xs font-semibold text-slate-300 mb-1.5">Categoria na Grade</label>
               <select id="chType" class="w-full bg-[#05070a] border border-slate-800 focus:border-[#00a8ff] rounded-xl px-3.5 py-2.5 text-sm text-white outline-none">
-                <option value="tv">TV Aberta / Linear (Fundo Cinza Azulado)</option>
-                <option value="streaming">App / Streaming / OTT (Fundo Âmbar Suave)</option>
+                <option value="tv">Emissora Numerada (TV / Satélite)</option>
+                <option value="streaming">App / Streaming / OTT</option>
               </select>
             </div>
           </div>
@@ -629,13 +629,13 @@
             <label class="block text-xs font-semibold text-slate-300 mb-2">Recursos Técnicos (Ícones da Coluna Recursos)</label>
             <div class="flex flex-wrap gap-2">
               <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
-                <input type="checkbox" name="chFeatures" value="HD" checked class="accent-[#00a8ff]" /> HD
+                <input type="checkbox" name="chFeatures" value="4K" checked class="accent-[#00a8ff]" /> 4K
+              </label>
+              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
+                <input type="checkbox" name="chFeatures" value="HD" class="accent-[#00a8ff]" /> HD
               </label>
               <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
                 <input type="checkbox" name="chFeatures" value="SD" class="accent-[#00a8ff]" /> SD
-              </label>
-              <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
-                <input type="checkbox" name="chFeatures" value="4K" class="accent-[#00a8ff]" /> 4K
               </label>
               <label class="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#05070a] border border-slate-800 hover:border-[#00a8ff] text-xs font-bold text-slate-200">
                 <input type="checkbox" name="chFeatures" value="CC" class="accent-[#00a8ff]" /> CC (Closed Caption)
@@ -659,16 +659,16 @@
             <button type="button" onclick="toggleChannelForm(false)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
               Cancelar
             </button>
-            <button type="submit" id="channelSubmitBtn" class="px-6 py-2.5 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 font-extrabold text-xs sm:text-sm shadow-glow transition">
+            <button type="submit" id="channelSubmitBtn" class="px-5 py-2.5 rounded-xl bg-[#00a8ff] hover:bg-[#38bdf8] text-slate-950 font-extrabold text-xs transition shadow-glow">
               Salvar na Grade
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Filter Pills for Line-UP Table -->
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
+      <!-- Filter Pills & Color Legend for Line-UP Table -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
           <button onclick="setChannelFilter('all')" id="chFilterAll" class="px-3.5 py-1.5 rounded-xl bg-[#00a8ff] text-slate-950 text-xs font-bold transition">
             Todos os Canais
           </button>
@@ -680,9 +680,16 @@
           </button>
         </div>
 
-        <button onclick="confirmResetChannels()" class="text-xs text-slate-400 hover:text-slate-200 underline underline-offset-4 transition">
-          Restaurar grade exemplo
-        </button>
+        <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold text-slate-300">
+          <span class="text-slate-500 uppercase tracking-wider text-[10px]">Cor por Recurso:</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#0c2738] border border-cyan-500/60"></span>4K</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#0c2920] border border-emerald-500/60"></span>HD</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#2a2112] border border-amber-500/60"></span>SD</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-[#1f1633] border border-purple-500/60"></span>Streaming</span>
+          <button onclick="confirmResetChannels()" class="ml-1 text-xs text-slate-400 hover:text-slate-200 underline underline-offset-4 transition">
+            Restaurar grade exemplo
+          </button>
+        </div>
       </div>
 
       <!-- Classic Line-UP Style Table (Adapted to Modern Dark Mode) -->
@@ -713,7 +720,7 @@
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xl font-black tracking-tight text-white">Line<span class="text-[#00a8ff]">UP</span><span class="text-[#38bdf8]">+</span></span>
+            <span class="text-xl font-black tracking-tight text-white">DOUG<span class="text-[#00a8ff]">PLAY</span></span>
             <span class="text-xs px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 font-mono">v3.0 Cloud</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-400 mt-2 max-w-md">
@@ -732,7 +739,7 @@
       </div>
 
       <div class="mt-8 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-        <p>© 2026 LineUP+ Brasil. Todos os direitos reservados.</p>
+        <p>© 2026 DOUGPLAY Brasil. Todos os direitos reservados.</p>
         <p id="storageModeFooter">Sincronização híbrida: Firebase Firestore + Cache Local.</p>
       </div>
     </div>
@@ -791,7 +798,7 @@
         badgeColor: 'text-[#38bdf8] bg-[#00a8ff]/15 border-[#00a8ff]/30',
         title: 'StarOne D2 • Novo Mux HD',
         detail: 'TP 11740 H 29900 ativado na TVRO Banda Ku.',
-        time: 'Há 25 min'
+        body: `O sistema SAT HD Regional no satélite StarOne D2 (posição orbital 70° Oeste) acaba de ganhar cinco novas emissoras regionais em alta definição, fortalecendo ainda mais a grade gratuita da nova parabólica em Banda Ku.\n\nSegundo os parâmetros técnicos captados pela equipe de monitoramento do DOUGPLAY, os novos sinais utilizam modulação 8PSK com FEC 3/4, garantindo excelente margem de chuva mesmo em antenas de 60 cm instaladas nas regiões Norte e Nordeste.\n\nPara sintonizar as novidades, os usuários de receptores compatíveis com o sistema SAT HD Regional não precisam realizar busca cega manual: a atualização da tabela NIT ocorre automaticamente ao deixar o aparelho em standby por alguns minutos.\n\nA expectativa é que até o final do próximo trimestre mais 12 afiliadas estaduais concluam a migração definitiva da antiga Banda C para o feixe nacional da Banda Ku.`
       },
       {
         badge: 'TV ABERTA',
@@ -1051,7 +1058,7 @@
           frequency: 'Bitrate Adaptativo até 25 Mbps',
           resolution: '1080p60 / 4K UHD (Jogos Selecionados)'
         },
-        body: `A fragmentação das transmissões esportivas exige atenção redobrada do torcedor brasileiro para não perder nenhuma partida. Preparamos um guia atualizado detalhando onde assistir cada competição ao vivo.\n\nNa TV por assinatura tradicional e no streaming pago, o Premiere segue concentrando a maior fatia das partidas exclusivas das Séries A e B, agora com sinal de baixa latência reduzindo o famoso atraso em relação ao rádio.\n\nJá no modelo gratuito suportado por anúncios (AVOD/FAST), transmissões via YouTube, Samsung TV Plus e Pluto TV consolidaram audiências recordes com pré-jogo estendido e múltiplas câmeras táticas.\n\nDica técnica do LineUP+: para evitar travamentos em transmissões ao vivo 4K, conecte sua Smart TV via cabo Ethernet ou rede Wi-Fi 5 GHz / Wi-Fi 6 dedicada.`
+        body: `A fragmentação das transmissões esportivas exige atenção redobrada do torcedor brasileiro para não perder nenhuma partida. Preparamos um guia atualizado detalhando onde assistir cada competição ao vivo.\n\nNa TV por assinatura tradicional e no streaming pago, o Premiere segue concentrando a maior fatia das partidas exclusivas das Séries A e B, agora com sinal de baixa latência reduzindo o famoso atraso em relação ao rádio.\n\nJá no modelo gratuito suportado por anúncios (AVOD/FAST), transmissões via YouTube, Samsung TV Plus e Pluto TV consolidaram audiências recordes com pré-jogo estendido e múltiplas câmeras táticas.\n\nDica técnica do DOUGPLAY: para evitar travamentos em transmissões ao vivo 4K, conecte sua Smart TV via cabo Ethernet ou rede Wi-Fi 5 GHz / Wi-Fi 6 dedicada.`
       },
       {
         id: 'art-4',
@@ -1059,7 +1066,7 @@
         summary: 'Operadoras reorganizam numeração linear e liberam sinal aberto promocional durante todo o fim de semana para assinantes.',
         category: 'TV por Assinatura',
         tag: 'NOVIDADE',
-        author: 'Redação LineUP+',
+        author: 'Redação DOUGPLAY',
         date: '19 Nov 2026',
         featured: false,
         isUserCreated: false,
@@ -1328,7 +1335,7 @@
       } else if (view === 'create') {
         document.getElementById('editingArticleId').value = '';
         document.getElementById('createPostForm').reset();
-        document.getElementById('postAuthor').value = 'Redação LineUP+';
+        document.getElementById('postAuthor').value = 'Redação DOUGPLAY';
         document.getElementById('postFeatured').checked = true;
         document.getElementById('formHeadingTitle').textContent = 'Publicar Nova Informação';
         document.getElementById('formHeadingSub').textContent = 'Preencha os dados abaixo para publicar notícias, atualizações de canais, frequências de satélite ou estreias diretamente no portal.';
@@ -1359,7 +1366,7 @@
       document.getElementById('postSummary').value = article.summary || '';
       document.getElementById('postCategory').value = article.category || 'TV Aberta';
       document.getElementById('postTag').value = article.tag || 'NOVIDADE';
-      document.getElementById('postAuthor').value = article.author || 'Redação LineUP+';
+      document.getElementById('postAuthor').value = article.author || 'Redação DOUGPLAY';
       document.getElementById('postImage').value = article.image || '';
       document.getElementById('postFeatured').checked = !!article.featured;
       document.getElementById('postBody').value = article.body || '';
@@ -1476,11 +1483,19 @@
       }
 
       tbody.innerHTML = filtered.map(item => {
-        const isStreaming = item.type === 'streaming';
-        // Subtle warm amber tint for streaming apps vs cool slate tint for numbered TV channels (matching the reference style adapted to dark mode)
-        const rowBg = isStreaming
-          ? 'bg-[#1a1610]/90 hover:bg-[#231d15]'
-          : 'bg-[#11161f] hover:bg-[#171e2b]';
+        const feats = item.features || [];
+        let rowBg = 'bg-[#11161f] hover:bg-[#171e2b] border-l-4 border-l-slate-700';
+
+        // Keep #1f1633 for Streaming/OTT rows even when 4K, HD, or SD is selected
+        if (feats.includes('OTT') || item.type === 'streaming') {
+          rowBg = 'bg-[#1f1633] hover:bg-[#281d42] border-l-4 border-l-purple-400';
+        } else if (feats.includes('4K')) {
+          rowBg = 'bg-[#0b2232]/90 hover:bg-[#0f2d42] border-l-4 border-l-[#38bdf8]';
+        } else if (feats.includes('HD')) {
+          rowBg = 'bg-[#0b241c]/90 hover:bg-[#0f3126] border-l-4 border-l-emerald-400';
+        } else if (feats.includes('SD')) {
+          rowBg = 'bg-[#261e12]/90 hover:bg-[#332818] border-l-4 border-l-amber-400';
+        }
 
         const logoHTML = item.logo
           ? `<img src="${escapeHTML(item.logo)}" alt="${escapeHTML(item.name)}" onerror="this.style.display='none'" class="max-h-11 max-w-[115px] object-contain mx-auto rounded" />`
@@ -1554,11 +1569,17 @@
       if (!container) return;
       const shouldShow = forceState !== null ? forceState : container.classList.contains('hidden');
       if (shouldShow) {
-        document.getElementById('editingChannelId').value = '';
-        document.getElementById('channelForm').reset();
-        document.getElementById('chContributor').value = 'Redação';
-        document.getElementById('channelFormTitle').textContent = 'Cadastrar Nova Emissora na Grade';
-        document.getElementById('channelSubmitBtn').textContent = 'Salvar na Grade';
+        const editingInput = document.getElementById('editingChannelId');
+        const form = document.getElementById('channelForm');
+        const contrib = document.getElementById('chContributor');
+        const titleEl = document.getElementById('channelFormTitle');
+        const submitBtn = document.getElementById('channelSubmitBtn');
+
+        if (editingInput) editingInput.value = '';
+        if (form) form.reset();
+        if (contrib) contrib.value = 'Redação';
+        if (titleEl) titleEl.textContent = 'Cadastrar Nova Emissora na Grade';
+        if (submitBtn) submitBtn.textContent = 'Salvar na Grade';
         container.classList.remove('hidden');
       } else {
         container.classList.add('hidden');
@@ -1760,7 +1781,7 @@
             <img
               src="${escapeHTML(slide.image)}"
               alt="${escapeHTML(slide.title)}"
-              onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B+Destaque'"
+              onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=DOUGPLAY+Destaque'"
               class="w-full h-full object-cover object-center"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-[#05070a] via-[#05070a]/75 to-transparent"></div>
@@ -1921,7 +1942,7 @@
                 <img
                   src="${escapeHTML(article.image)}"
                   alt="${escapeHTML(article.title)}"
-                  onerror="this.src='https://placehold.co/800x450/0d1117/38bdf8?text=LineUP%2B'"
+                  onerror="this.src='https://placehold.co/800x450/0d1117/38bdf8?text=DOUGPLAY'"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-black/30"></div>
@@ -1967,7 +1988,7 @@
             </div>
 
             <div class="px-5 py-3.5 bg-[#05070a]/50 border-t border-slate-800/70 flex items-center justify-between">
-              <span class="text-xs text-slate-400 font-medium truncate">Por ${escapeHTML(article.author || 'Redação LineUP+')}</span>
+              <span class="text-xs text-slate-400 font-medium truncate">Por ${escapeHTML(article.author || 'Redação DOUGPLAY')}</span>
               <span class="inline-flex items-center gap-1 text-xs font-bold text-[#38bdf8] group-hover:translate-x-1 transition-transform">
                 Ler mais
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2068,7 +2089,7 @@
           <img
             src="${escapeHTML(article.image)}"
             alt="${escapeHTML(article.title)}"
-            onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=LineUP%2B'"
+            onerror="this.src='https://placehold.co/1200x600/0d1117/38bdf8?text=DOUGPLAY'"
             class="w-full h-full object-cover"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-[#0d1117]/30 to-transparent"></div>
@@ -2106,7 +2127,7 @@
                 ${escapeHTML((article.author || 'L')[0].toUpperCase())}
               </div>
               <div>
-                <p class="text-sm font-bold text-white">${escapeHTML(article.author || 'Redação LineUP+')}</p>
+                <p class="text-sm font-bold text-white">${escapeHTML(article.author || 'Redação DOUGPLAY')}</p>
                 <p class="text-xs text-slate-400">Publicado em ${escapeHTML(article.date)} • ${readTime}</p>
               </div>
             </div>
@@ -2144,7 +2165,7 @@
             <img
               src="${escapeHTML(rel.image)}"
               alt="${escapeHTML(rel.title)}"
-              onerror="this.src='https://placehold.co/600x350/0d1117/38bdf8?text=LineUP%2B'"
+              onerror="this.src='https://placehold.co/600x350/0d1117/38bdf8?text=DOUGPLAY'"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#05070a]/85 text-[#38bdf8] text-[10px] font-bold">
@@ -2178,7 +2199,7 @@
       const summary = document.getElementById('postSummary').value.trim();
       const category = document.getElementById('postCategory').value;
       const tag = document.getElementById('postTag').value;
-      const author = document.getElementById('postAuthor').value.trim() || 'Redação LineUP+';
+      const author = document.getElementById('postAuthor').value.trim() || 'Redação DOUGPLAY';
       let image = document.getElementById('postImage').value.trim();
       const featured = document.getElementById('postFeatured').checked;
       const body = document.getElementById('postBody').value.trim();
@@ -2252,7 +2273,7 @@
 
       document.getElementById('editingArticleId').value = '';
       document.getElementById('createPostForm').reset();
-      document.getElementById('postAuthor').value = 'Redação LineUP+';
+      document.getElementById('postAuthor').value = 'Redação DOUGPLAY';
       document.getElementById('postFeatured').checked = true;
       state.selectedCategory = 'Todos';
       state.searchQuery = '';
@@ -2290,7 +2311,7 @@
     window.confirmResetData = function() {
       openConfirmModal(
         'Restaurar dados originais?',
-        'Isso irá restaurar as 6 matérias originais do LineUP+ e remover postagens personalizadas.',
+        'Isso irá restaurar as 6 matérias originais do DOUGPLAY e remover postagens personalizadas.',
         async () => {
           const currentIds = state.articles.map(a => a.id);
           state.articles = [...DEFAULT_ARTICLES];
@@ -2346,7 +2367,7 @@
     }
 
     window.copyArticleTitle = function(title) {
-      const textToCopy = `${title} — Via Portal LineUP+`;
+      const textToCopy = `${title} — Via Portal DOUGPLAY`;
       const tempInput = document.createElement('textarea');
       tempInput.value = textToCopy;
       document.body.appendChild(tempInput);
