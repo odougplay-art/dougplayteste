@@ -79,74 +79,6 @@
     .live-dot {
       animation: pulseDot 2s infinite ease-in-out;
     }
-
-    /* Light Mode ("Modo Branco") Support */
-    html.light-theme body {
-      background-color: #f1f5f9 !important;
-      color: #0f172a !important;
-    }
-    html.light-theme header {
-      background-color: rgba(255, 255, 255, 0.92) !important;
-      border-color: #cbd5e1 !important;
-    }
-    html.light-theme footer {
-      background-color: #e2e8f0 !important;
-      border-color: #cbd5e1 !important;
-    }
-    html.light-theme .bg-\[\#05070a\],
-    html.light-theme .bg-\[\#05070a\]\/80,
-    html.light-theme .bg-\[\#05070a\]\/85,
-    html.light-theme .bg-\[\#05070a\]\/70,
-    html.light-theme .bg-\[\#05070a\]\/50 {
-      background-color: #f8fafc !important;
-    }
-    html.light-theme .bg-\[\#0d1117\],
-    html.light-theme .bg-\[\#0d1117\]\/90,
-    html.light-theme .bg-\[\#0d1117\]\/95,
-    html.light-theme .bg-\[\#121822\] {
-      background-color: #ffffff !important;
-    }
-    html.light-theme .bg-\[\#08101E\] {
-      background-color: #e2e8f0 !important;
-    }
-    html.light-theme .border-slate-800,
-    html.light-theme .border-slate-800\/90,
-    html.light-theme .border-slate-800\/80,
-    html.light-theme .border-slate-800\/70,
-    html.light-theme .border-slate-800\/60,
-    html.light-theme .border-slate-700,
-    html.light-theme .border-slate-700\/80 {
-      border-color: #cbd5e1 !important;
-    }
-    html.light-theme .text-white,
-    html.light-theme .text-slate-100,
-    html.light-theme .text-slate-200 {
-      color: #0f172a !important;
-    }
-    html.light-theme .text-slate-300,
-    html.light-theme .text-slate-400 {
-      color: #334155 !important;
-    }
-    html.light-theme .text-slate-500 {
-      color: #64748b !important;
-    }
-    html.light-theme input,
-    html.light-theme textarea,
-    html.light-theme select {
-      background-color: #ffffff !important;
-      color: #0f172a !important;
-      border-color: #cbd5e1 !important;
-    }
-    html.light-theme #heroSection .text-white {
-      color: #ffffff !important;
-    }
-    html.light-theme #heroSection .text-slate-300 {
-      color: #e2e8f0 !important;
-    }
-    html.light-theme #heroSection .bg-gradient-to-t,
-    html.light-theme #heroSection .bg-gradient-to-r {
-      background: linear-gradient(to top, rgba(5, 7, 10, 0.92), rgba(5, 7, 10, 0.55), transparent) !important;
-    }
   </style>
 </head>
 <body class="bg-[#05070a] text-slate-100 font-sans antialiased selection:bg-[#00a8ff]/30 selection:text-[#38bdf8] min-h-screen flex flex-col">
@@ -987,10 +919,6 @@
           <button onclick="navigateTo('home', 'Satélites')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Satélites</button>
           <button onclick="navigateTo('home', 'Streaming')" class="px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition">Streaming</button>
           <button onclick="navigateTo('create')" class="px-3 py-1.5 rounded-lg bg-[#00a8ff]/15 hover:bg-[#00a8ff]/25 text-xs text-[#38bdf8] border border-[#00a8ff]/30 font-semibold transition">+ Nova Postagem</button>
-          <button id="themeToggleBtn" onclick="toggleSiteTheme()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0d1117] hover:bg-slate-800 text-xs text-slate-200 border border-slate-700 font-semibold transition" title="Alternar entre Modo Preto e Modo Branco">
-            <span id="themeToggleIcon">☀️</span>
-            <span id="themeToggleLabel">Modo Branco</span>
-          </button>
         </div>
       </div>
 
@@ -1036,7 +964,6 @@
   <script>
     window.showToast = window.showToast || function() {};
     window.navigateTo = window.navigateTo || function() {};
-    window.toggleSiteTheme = window.toggleSiteTheme || function() {};
     window.playFeaturedRadio = window.playFeaturedRadio || function() {};
     window.toggleFeaturedRadioForm = window.toggleFeaturedRadioForm || function() {};
     window.editFeaturedRadio = window.editFeaturedRadio || function() {};
@@ -3430,30 +3357,6 @@
     }
 
     // Boot Application Immediately
-    function applySavedTheme() {
-      const savedTheme = localStorage.getItem('dougplay_theme') || 'dark';
-      const htmlEl = document.documentElement;
-      const labelEl = document.getElementById('themeToggleLabel');
-      const iconEl = document.getElementById('themeToggleIcon');
-      if (savedTheme === 'light') {
-        htmlEl.classList.add('light-theme');
-        if (labelEl) labelEl.textContent = 'Modo Preto';
-        if (iconEl) iconEl.textContent = '🌙';
-      } else {
-        htmlEl.classList.remove('light-theme');
-        if (labelEl) labelEl.textContent = 'Modo Branco';
-        if (iconEl) iconEl.textContent = '☀️';
-      }
-    }
-
-    window.toggleSiteTheme = function() {
-      const isLight = document.documentElement.classList.toggle('light-theme');
-      localStorage.setItem('dougplay_theme', isLight ? 'light' : 'dark');
-      applySavedTheme();
-      showToast(isLight ? 'Modo Branco ativado!' : 'Modo Preto ativado!', 'info');
-    };
-
-    applySavedTheme();
     renderNavigation();
     renderQuickUpdates();
     renderFeaturedRadios();
